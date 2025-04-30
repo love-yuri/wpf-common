@@ -7,11 +7,11 @@
         <AssemblyName>love-yuri</AssemblyName>
         <Version>1.0</Version>
         <Authors>love-yuri</Authors>
-        <Description>wpf 常用库基于.net48</Description>
+        <Description>基于.net48构建的wpf常用工具库</Description>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageId>love-yuri.WpfCommon</PackageId>
-        <RepositoryUrl>https://github.com/love-yuri/wpf</RepositoryUrl>
+        <RepositoryUrl>https://github.com/love-yuri/wpf-common</RepositoryUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
