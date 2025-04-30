@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- 核心样式，使用程序集需要包含该xaml，或者单独引用别的xaml -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Styles/Notification/Notification.xaml" />
+        <ResourceDictionary Source="/Styles/Compoents/Componets.xaml" />
+        <ResourceDictionary Source="/Styles/WindowButtonStyle.xaml" />
+        <ResourceDictionary Source="/Styles/Svg.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
