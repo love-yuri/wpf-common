@@ -85,19 +85,18 @@ namespace LoveYuri.Core.Mvvm {
         /// <param name="check">前置检查，如果返回值为false则不会处理更新操作</param>
         /// <param name="propertyName">属性名称</param>
         /// <typeparam name="T"></typeparam>
-        protected bool SetField<T>(ref T field, T value, Func<T, bool> check,
-            [CallerMemberName] string propertyName = null) {
+        protected bool SetField<T>(ref T field, T value, Func<T, bool> check, [CallerMemberName] string propertyName = null) {
             // 如果值没有变化直接返回
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            if (EqualityComparer<T>.Default.Equals(field, value)) {
+                return false;
+            }
 
-            if (propertyName == null || !check(value)) return false;
+            if (propertyName == null || !check(value)) {
+                return false;
+            }
 
-            // 状态的更改暂时由回调决定
-        #if DEBUG 
-            // Debug时直接更改，方便调试页面
             field = value;
             OnPropertyChanged(propertyName);
-        #endif
             return true;
         }
     }

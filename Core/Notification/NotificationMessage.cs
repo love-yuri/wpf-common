@@ -7,6 +7,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using LoveYuri.Core.Mvvm;
 
+// ReSharper disable UnusedAutoPropertyAccessor.Global
+
 namespace LoveYuri.Core.Notification {
     public enum NotificationType {
         Success,
