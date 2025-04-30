@@ -26,7 +26,7 @@ namespace LoveYuri.Core.Notification {
         private void Init()
         {
             // 基础顶部偏移量
-            var marginTop = 10.0;
+            var marginTop = 2.0;
 
             var windowChrome = WindowChrome.GetWindowChrome(_window);
             if (windowChrome != null) {
