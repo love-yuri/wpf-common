@@ -2,9 +2,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     xmlns:notification="clr-namespace:LoveYuri.Core.Notification"
     mc:Ignorable="d">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Styles/Svg.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="notification:ErrorNotificationMessage">
         <Setter Property="Template">
@@ -24,10 +27,10 @@
                             </Grid.ColumnDefinitions>
 
                             <!-- 图标 -->
-                            <svgc:SvgViewbox
+                            <Image
                                 Width="16"
                                 Height="16"
-                                Source="/Assets/Svg/error.svg"
+                                Source="{StaticResource ErrorDrawingImage}"
                                 Grid.Column="0"
                                 Margin="0,0,10,0"
                                 VerticalAlignment="Center" />
@@ -52,8 +55,7 @@
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Border Background="Transparent">
-                                            <svgc:SvgViewbox Height="16" Width="16"
-                                                Source="/Assets/Svg/close-error.svg" />
+                                            <Image Height="16" Width="16" Source="{StaticResource CloseErrorDrawingImage}" />
                                         </Border>
 
                                         <ControlTemplate.Triggers>
