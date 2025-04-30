@@ -35,6 +35,7 @@
     <ItemGroup>
         <!-- 系统核心依赖 -->
         <Reference Include="System" />
+        <Reference Include="System.Xaml" />
         
         <!-- wpf 依赖库 -->
         <Reference Include="PresentationCore" />
@@ -43,6 +44,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Class1.cs"/>
+        <Compile Include="Components\StatusCheckbox.cs" />
+        <Compile Include="Components\StatusIndicator.cs" />
+        <Compile Include="Components\ToggleSwitch.cs" />
+        <Compile Include="Components\ToolButton.cs" />
+        <Compile Include="Components\ValueButton.cs" />
         <Compile Include="Core\Mvvm\BaseViewModel.cs" />
         <Compile Include="Core\Mvvm\BaseViews.cs" />
         <Compile Include="Core\Mvvm\RelayCommand.cs" />
@@ -50,6 +56,20 @@
         <Compile Include="Core\Notification\NotificationMessage.cs" />
         <Compile Include="Core\Notification\NotificationService.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Page Include="Styles\Compoents\Componets.xaml" />
+      <Page Include="Styles\Compoents\ToggleSwitchStyle.xaml" />
+      <Page Include="Styles\Compoents\ToolButtonStyle.xaml" />
+      <Page Include="Styles\Notification\ErrorMessage.xaml" />
+      <Page Include="Styles\Notification\InfoMessage.xaml" />
+      <Page Include="Styles\Notification\Notification.xaml" />
+      <Page Include="Styles\Notification\SuccessMessage.xaml" />
+      <Page Include="Styles\Notification\WarningMessage.xaml" />
+      <Page Include="Styles\WindowButtonStyle.xaml" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Core\Mvvm\Converter\" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 
