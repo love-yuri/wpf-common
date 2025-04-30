@@ -3,3 +3,11 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+*.user
+
+# JetBrains IDE
+.idea/
+*.iml
+*.iws
+*.ipr
