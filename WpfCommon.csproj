@@ -12,6 +12,16 @@
         <AssemblyName>love-yuri</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <UseWpf>true</UseWpf>
+        
+        <Version>1.0</Version>
+        <Authors>love-yuri</Authors>
+        <Description>wpf 常用库</Description>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/love-yuri/wpf-common</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,7 +54,6 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Components\StatusCheckbox.cs" />
-        <Compile Include="Components\StatusIndicator.cs" />
         <Compile Include="Components\ToggleSwitch.cs" />
         <Compile Include="Components\ToolButton.cs" />
         <Compile Include="Components\ValueButton.cs" />
@@ -57,10 +66,10 @@
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
     <ItemGroup>
-      <Page Include="CoreStyle.xaml" />
       <Page Include="Styles\Compoents\Componets.xaml" />
       <Page Include="Styles\Compoents\ToggleSwitchStyle.xaml" />
       <Page Include="Styles\Compoents\ToolButtonStyle.xaml" />
+      <Page Include="Styles\Mian.xaml" />
       <Page Include="Styles\Notification\ErrorMessage.xaml" />
       <Page Include="Styles\Notification\InfoMessage.xaml" />
       <Page Include="Styles\Notification\Notification.xaml" />
@@ -71,6 +80,10 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Core\Mvvm\Converter\" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="LICENSE" Pack="true" PackagePath=""/>
+        <None Include="README.md" Pack="true" PackagePath=""/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 
