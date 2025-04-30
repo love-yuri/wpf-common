@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/Styles/Notification/SuccessMessage.xaml" />
-        <ResourceDictionary Source="/Styles/Notification/ErrorMessage.xaml" />
-        <ResourceDictionary Source="/Styles/Notification/WarningMessage.xaml" />
-        <ResourceDictionary Source="/Styles/Notification/InfoMessage.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Notification/SuccessMessage.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Notification/ErrorMessage.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Notification/WarningMessage.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Notification/InfoMessage.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
