@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Windows;
-using LoveYuri.Core.Notification;
 
 namespace LoveYuri.Core.Mvvm {
     /// <summary>
@@ -12,34 +10,6 @@ namespace LoveYuri.Core.Mvvm {
     /// </summary>
     public abstract class BaseViewModel : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// 在mainWindow上展示错误
-        /// </summary>
-        protected static void ShowError(string msg, bool autoClose = true, int duration = 3000) {
-            Application.Current.MainWindow.ShowError(msg, autoClose, duration);
-        }
-        
-        /// <summary>
-        /// 在mainWindow上展示info
-        /// </summary>
-        protected static void ShowInfo(string msg, bool autoClose = true, int duration = 3000) {
-            Application.Current.MainWindow.ShowInfo(msg, autoClose, duration);
-        }
-        
-        /// <summary>
-        /// 在mainWindow上展示warning
-        /// </summary>
-        protected static void ShowWarning(string message,bool autoClose = true, int duration = 3000) {
-            Application.Current.MainWindow.ShowWarning(message, autoClose, duration);
-        }
-        
-        /// <summary>
-        /// 在mainWindow上展示success
-        /// </summary>
-        protected static void ShowSuccess(string message,bool autoClose = true, int duration = 3000) {
-            Application.Current.MainWindow.ShowSuccess(message, autoClose, duration);
-        }
 
         /// <summary>
         /// 更新属性（线程安全）
@@ -56,7 +26,10 @@ namespace LoveYuri.Core.Mvvm {
                 var del = (PropertyChangedEventHandler)@delegate;
                 var synchronizationContext = SynchronizationContext.Current;
                 if (synchronizationContext != null) {
-                    synchronizationContext.Post(_ => del(this, args), null);
+                    synchronizationContext.Post(
+                        _ => del.Invoke(this, args), 
+                        null
+                    );
                 } else {
                     del(this, args);
                 }
