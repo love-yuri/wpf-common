@@ -1,0 +1,12 @@
+<package>
+    <metadata>
+        <!-- 在 .nuspec 文件中 -->
+        <dependencies>
+            <group targetFramework=".NETFramework4.8">
+                <dependency id="Microsoft.Extensions.DependencyInjection" version="9.0.1" />
+                <dependency id="Microsoft.Extensions.Hosting" version="9.0.1" />
+            </group>
+        </dependencies>
+    </metadata>
+    
+</package>
