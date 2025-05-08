@@ -5,7 +5,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Notification/Notification.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Compoents/Componets.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/WindowButtonStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
