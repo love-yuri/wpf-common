@@ -40,9 +40,6 @@ namespace LoveYuri.Components {
                 UseAeroCaptionButtons = false
             };
             WindowChrome.SetWindowChrome(this, windowChrome);
-
-            // 强制应用样式
-            Style = (Style)FindResource(typeof(ToolbarWindow));
         }
 
         /// <summary>
