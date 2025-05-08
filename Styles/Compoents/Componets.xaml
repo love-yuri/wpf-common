@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Compoents/ToggleSwitchStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Compoents/ToolButtonStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Compoents/ToolbarWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
