@@ -7,23 +7,23 @@ namespace LoveYuri.Core.Mvvm {
     /// 无参数版本的 RelayCommand 实现
     /// </summary>
     public class RelayCommand : ICommand {
-        private readonly Func<bool> _canExecute;
-        private readonly Action _execute;
+        private readonly Func<bool> canExecute;
+        private readonly Action execute;
 
         /// <summary>
         /// 创建有条件执行的新命令
         /// </summary>
         public RelayCommand(Action execute, Func<bool> canExecute = null) {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter) {
-            return _canExecute?.Invoke() ?? true;
+            return canExecute?.Invoke() ?? true;
         }
 
         public void Execute(object parameter) {
-            _execute();
+            execute();
         }
 
         public event EventHandler CanExecuteChanged {
@@ -45,9 +45,9 @@ namespace LoveYuri.Core.Mvvm {
     /// </summary>
     /// <typeparam name="T">命令参数类型</typeparam>
     public class RelayCommand<T> : ICommand {
-        private readonly Predicate<T> _canExecute;
-        private readonly Action<T> _execute;
-        private readonly Func<object, T> _parameterConverter;
+        private readonly Predicate<T> canExecute;
+        private readonly Action<T> execute;
+        private readonly Func<object, T> parameterConverter;
 
         /// <summary>
         /// 创建有条件执行的新命令
@@ -64,9 +64,9 @@ namespace LoveYuri.Core.Mvvm {
         /// <param name="parameterConverter">参数转换器</param>
         public RelayCommand(Action<T> execute, Predicate<T> canExecute = null,
             Func<object, T> parameterConverter = null) {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute;
-            _parameterConverter = parameterConverter;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.canExecute = canExecute;
+            this.parameterConverter = parameterConverter;
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace LoveYuri.Core.Mvvm {
         public bool CanExecute(object parameter) {
             try {
                 var typedParameter = ConvertParameter(parameter);
-                return _canExecute == null || _canExecute(typedParameter);
+                return canExecute == null || canExecute(typedParameter);
             } catch {
                 return false;
             }
@@ -87,7 +87,7 @@ namespace LoveYuri.Core.Mvvm {
         /// </summary>
         public void Execute(object parameter) {
             var typedParameter = ConvertParameter(parameter);
-            _execute(typedParameter);
+            execute(typedParameter);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace LoveYuri.Core.Mvvm {
         /// 转换参数到指定类型
         /// </summary>
         private T ConvertParameter(object parameter) {
-            if (_parameterConverter != null) return _parameterConverter(parameter);
+            if (parameterConverter != null) return parameterConverter(parameter);
 
             switch (parameter) {
                 case null when default(T) == null:

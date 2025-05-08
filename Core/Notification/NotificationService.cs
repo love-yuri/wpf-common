@@ -11,11 +11,11 @@ namespace LoveYuri.Core.Notification {
     /// </summary>
     public class NotificationService {
         private const int DefaultDuration = 3000;
-        private Panel _container;
-        private readonly Window _window;
+        private Panel container;
+        private readonly Window window;
 
         public NotificationService(Window window) {
-            _window = window;
+            this.window = window;
             if (!window.Dispatcher.CheckAccess()) {
                 window.Dispatcher.Invoke(Init);
             } else {
@@ -28,30 +28,30 @@ namespace LoveYuri.Core.Notification {
             // 基础顶部偏移量
             var marginTop = 2.0;
 
-            var windowChrome = WindowChrome.GetWindowChrome(_window);
+            var windowChrome = WindowChrome.GetWindowChrome(window);
             if (windowChrome != null) {
                 marginTop += windowChrome.CaptionHeight;
             }
 
             // 创建通知容器 - 居中显示
-            _container = new StackPanel {
+            container = new StackPanel {
                 VerticalAlignment = VerticalAlignment.Top,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(0, marginTop, 0, 0)
             };
 
             // 添加到窗口
-            Panel.SetZIndex(_container, 9999);
+            Panel.SetZIndex(container, 9999);
 
-            object originalContent = _window.Content;
+            object originalContent = window.Content;
             var grid = new Grid();
-            _window.Content = grid;
+            window.Content = grid;
 
             if (originalContent is UIElement element) {
                 grid.Children.Add(element);
             }
 
-            grid.Children.Add(_container);
+            grid.Children.Add(container);
         }
 
         /// <summary>
@@ -68,15 +68,15 @@ namespace LoveYuri.Core.Notification {
             int duration = DefaultDuration
         ) {
             // 异步通知
-            _window.Dispatcher.BeginInvoke(new Action(() => {
+            window.Dispatcher.BeginInvoke(new Action(() => {
                 var notification = NotificationMessage.GetNotificationMessage(message, type);
 
                 // 添加到容器
-                _container.Children.Add(notification);
+                container.Children.Add(notification);
                 
                 // 关联关闭
                 notification.Closed += (sender, args) => {
-                    _container.Children.Remove(notification);
+                    container.Children.Remove(notification);
                 };
                 
                 // 自动关闭 
