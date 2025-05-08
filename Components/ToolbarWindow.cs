@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -10,8 +11,10 @@ using LoveYuri.Core.Mvvm;
 namespace LoveYuri.Components {
     public class ToolbarWindow: Window {
         public const string PartMaximizeIcon = "PART_MaximizeIcon";
+        public const string PartPinDownIcon = "PART_PinDownIcon";
         
         private Path MaximizeIcon => GetTemplateChild(PartMaximizeIcon) as Path;
+        private Image PinDownIcon => GetTemplateChild(PartPinDownIcon) as Image;
         
         static ToolbarWindow() {
             // 设置默认样式资源
@@ -27,11 +30,13 @@ namespace LoveYuri.Components {
         public ICommand CloseCommand { get; }
         public  ICommand MinimizeCommand { get; }
         public  ICommand MaximizeCommand { get; }
+        public  ICommand PinDownCommand { get; }
 
         protected ToolbarWindow() {
             CloseCommand = new RelayCommand(Close);
             MaximizeCommand = new RelayCommand(Maximize);
             MinimizeCommand = new RelayCommand(Minimize);
+            PinDownCommand = new RelayCommand(PinDown);
 
             var windowChrome = new WindowChrome {
                 GlassFrameThickness = new Thickness(-1),
@@ -60,6 +65,17 @@ namespace LoveYuri.Components {
         private void Minimize()
         {
             WindowState = WindowState.Minimized;
+        }
+        
+        /// <summary>
+        /// 钉住
+        /// </summary>
+        private void PinDown() {
+            // 切换窗口的Topmost属性
+            Topmost = !Topmost;
+            
+            // 更新按钮图标以反映当前状态
+            PinDownIcon.Source = (DrawingImage)FindResource(Topmost ? "PinDownedDrawingImage" : "PinDownDrawingImage");
         }
     }
 }
