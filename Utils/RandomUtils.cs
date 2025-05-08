@@ -67,7 +67,7 @@ namespace LoveYuri.Utils {
             }
 
             // 容量已满
-            if (history.Count == max - min) {
+            if (history.Count >= max - min) {
                 history.Clear();
                 history.Add(data);
                 return data;
@@ -77,6 +77,8 @@ namespace LoveYuri.Utils {
             while (history.Contains(data)) {
                 data = Random.Next(min, max);
             }
+            
+            history.Add(data);
             return data;
         } 
     }
