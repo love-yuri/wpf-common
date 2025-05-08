@@ -203,7 +203,7 @@
     
     
     <Style TargetType="{x:Type components:ToolbarWindow}">
-        <Setter Property="Background" Value="Aqua" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type components:ToolbarWindow}">
@@ -230,13 +230,18 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <!-- 应用图标和标题 -->
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0"
-                                    VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
-                                        Foreground="White" FontSize="16"
-                                        FontWeight="900" VerticalAlignment="Center" />
-                                </StackPanel>
+                                    <!-- 应用图标和标题 -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0"
+                                        VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            Foreground="White" FontSize="16"
+                                            FontWeight="900" VerticalAlignment="Center">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect ShadowDepth="1" Direction="330" Color="#80000000" 
+                                                                BlurRadius="2" Opacity="0.5"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </StackPanel>
 
                                 <!-- 窗口控制按钮 -->
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
