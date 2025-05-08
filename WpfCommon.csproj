@@ -29,5 +29,10 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1"/>
         
     </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Properties\AssemblyInfo.cs">
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 
 </Project>
