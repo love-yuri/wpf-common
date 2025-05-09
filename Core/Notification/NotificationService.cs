@@ -67,7 +67,10 @@ namespace LoveYuri.Core.Notification {
         /// </summary>
         private void PauseAllTimers()
         {
-            foreach (var notification in activeNotifications.Where(notification => notification.CloseTimer != null && notification.CloseTimer.IsEnabled)) {
+            foreach (var notification in activeNotifications.Where(
+                 notification => notification.CloseTimer != null && 
+                    !notification.CloseTimer.IsEnabled
+             )) {
                 notification.CloseTimer.Stop();
             }
         }
@@ -77,7 +80,10 @@ namespace LoveYuri.Core.Notification {
         /// </summary>
         private void ResumeAllTimers()
         {
-            foreach (var notification in activeNotifications.Where(notification => notification.CloseTimer != null && !notification.CloseTimer.IsEnabled)) {
+            foreach (var notification in activeNotifications.Where(
+                notification => notification.CloseTimer != null && 
+                    !notification.CloseTimer.IsEnabled
+            )) {
                 notification.CloseTimer.Start();
             }
         }
