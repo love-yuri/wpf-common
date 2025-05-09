@@ -2,8 +2,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Notification/Notification.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Compoents/Componets.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Styles/Svg.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Notification/Notification.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Compoents/Componets.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Svg/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

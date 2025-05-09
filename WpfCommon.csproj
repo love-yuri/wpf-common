@@ -62,7 +62,7 @@
       <Page Update="Themes\Notification\WarningMessage.xaml">
         <Generator>MSBuild:Compile</Generator>
       </Page>
-      <Page Update="Themes\Svg.xaml">
+      <Page Update="Themes\Svg\Svg.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
