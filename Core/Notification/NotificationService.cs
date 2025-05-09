@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shell;
@@ -67,11 +66,8 @@ namespace LoveYuri.Core.Notification {
         /// </summary>
         private void PauseAllTimers()
         {
-            foreach (var notification in activeNotifications.Where(
-                 notification => notification.CloseTimer != null && 
-                    !notification.CloseTimer.IsEnabled
-             )) {
-                notification.CloseTimer.Stop();
+            foreach (var notification in activeNotifications) {
+                notification.CloseTimer?.Stop();
             }
         }
 
@@ -80,11 +76,8 @@ namespace LoveYuri.Core.Notification {
         /// </summary>
         private void ResumeAllTimers()
         {
-            foreach (var notification in activeNotifications.Where(
-                notification => notification.CloseTimer != null && 
-                    !notification.CloseTimer.IsEnabled
-            )) {
-                notification.CloseTimer.Start();
+            foreach (var notification in activeNotifications) {
+                notification.CloseTimer?.Start();
             }
         }
 
