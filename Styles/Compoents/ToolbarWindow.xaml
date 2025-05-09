@@ -28,7 +28,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#40A9FF"
+                                            To="#9BAFD4"
                                             Duration="0:0:0.2">
                                             <ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -41,7 +41,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#1D7AD8"
+                                            To="#9BAFD4"
                                             Duration="0:0:0.1">
                                             <ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -94,7 +94,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#FF6B6B"
+                                            To="#F08080"
                                             Duration="0:0:0.2">
                                             <ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -107,7 +107,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#E74C3C"
+                                            To="#D64541"
                                             Duration="0:0:0.1">
                                             <ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -158,7 +158,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#40A9FF"
+                                            To="#9BAFD4"
                                             Duration="0:0:0.2">
                                             <ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -171,7 +171,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="#1D7AD8"
+                                            To="#4A5D94"
                                             Duration="0:0:0.1">
                                             <ColorAnimation.EasingFunction>
                                                 <CubicEase EasingMode="EaseOut" />
@@ -226,7 +226,13 @@
                         </Grid.RowDefinitions>
 
                         <!-- 顶栏 -->
-                        <Border Grid.Row="0" Background="#1976D2">
+                        <Border Grid.Row="0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#F8CDDA" Offset="0" />
+                                    <GradientStop Color="#1D2B64" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
@@ -294,10 +300,10 @@
                         </Border>
 
                         <!-- 具体内容 -->
-                        <Grid Grid.Row="1">
+                        <Border Grid.Row="1" Padding="6">
                             <!-- 主内容区域 -->
                             <ContentPresenter Content="{TemplateBinding Content}" />
-                        </Grid>
+                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
