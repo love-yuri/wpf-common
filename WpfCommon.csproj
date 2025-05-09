@@ -34,5 +34,39 @@
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
+    <ItemGroup>
+      <Page Update="Themes\Compoents\Componets.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Compoents\ToggleSwitchStyle.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Compoents\ToolbarWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Compoents\ToolButtonStyle.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Notification\ErrorMessage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Notification\InfoMessage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Notification\Notification.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Notification\SuccessMessage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Notification\WarningMessage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Themes\Svg.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
 
 </Project>
