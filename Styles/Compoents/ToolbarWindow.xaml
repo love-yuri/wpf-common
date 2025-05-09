@@ -249,12 +249,23 @@
 
                                 <!-- 窗口控制按钮 -->
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Width="46" Height="40"
+                                    <Button Width="36" Height="40"
                                         x:Name="TopMostButton"
                                         Command="{Binding PinDownCommand, RelativeSource={RelativeSource AncestorType=components:ToolbarWindow}}"
                                         Style="{StaticResource TopMostButtonStyle}"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
-                                        <Image x:Name="PART_PinDownIcon" Width="16" Height="16" Source="{StaticResource PinDownDrawingImage}" />
+                                        <Image x:Name="PART_PinDownIcon" Width="16" Height="16">
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Source" Value="{StaticResource PinDownDrawingImage}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Topmost, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                                            <Setter Property="Source" Value="{StaticResource PinDownedDrawingImage}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Image.Style>
+                                        </Image>
                                     </Button>
                                     <Button Width="46" Height="40"
                                         Command="{Binding MinimizeCommand, RelativeSource={RelativeSource AncestorType=components:ToolbarWindow}}"
