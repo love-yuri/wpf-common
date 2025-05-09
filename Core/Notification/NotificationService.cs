@@ -1,7 +1,9 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shell;
 using System.Windows.Threading;
+using LoveYuri.Components;
 
 namespace LoveYuri.Core.Notification {
     
@@ -26,11 +28,14 @@ namespace LoveYuri.Core.Notification {
         {
             // 基础顶部偏移量
             var marginTop = 2.0;
-
-            // var windowChrome = WindowChrome.GetWindowChrome(window);
-            // if (windowChrome != null) {
-            //     marginTop += windowChrome.CaptionHeight;
-            // }
+            if (window is ToolbarWindow) {
+                marginTop = -6.0;
+            } else {
+                var windowChrome = WindowChrome.GetWindowChrome(window);
+                if (windowChrome != null) {
+                    marginTop += windowChrome.CaptionHeight;
+                }
+            }
 
             // 创建通知容器 - 居中显示
             container = new StackPanel {
