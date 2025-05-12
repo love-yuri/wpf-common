@@ -8,16 +8,16 @@ using LoveYuri.Core.Mvvm;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace LoveYuri.Components {
-    public class ToolbarWindow: Window {
+    public class ModernWindow : Window {
         public const string PartMaximizeIcon = "PART_MaximizeIcon";
         
         private Path MaximizeIcon => GetTemplateChild(PartMaximizeIcon) as Path;
 
-        static ToolbarWindow() {
+        static ModernWindow () {
             // 设置默认样式资源
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(ToolbarWindow),
-                new FrameworkPropertyMetadata(typeof(ToolbarWindow))
+                typeof(ModernWindow ),
+                new FrameworkPropertyMetadata(typeof(ModernWindow ))
             );
         }
 
@@ -29,7 +29,7 @@ namespace LoveYuri.Components {
         public  ICommand MaximizeCommand { get; }
         public  ICommand PinDownCommand { get; }
 
-        protected ToolbarWindow() {
+        protected ModernWindow () {
             CloseCommand = new RelayCommand(Close);
             MaximizeCommand = new RelayCommand(Maximize);
             MinimizeCommand = new RelayCommand(Minimize);

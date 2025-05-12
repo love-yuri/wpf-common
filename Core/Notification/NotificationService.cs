@@ -31,7 +31,7 @@ namespace LoveYuri.Core.Notification {
         {
             // 基础顶部偏移量
             var marginTop = 2.0;
-            if (window is ToolbarWindow) {
+            if (window is ModernWindow ) {
                 marginTop = -6.0;
             } else {
                 var windowChrome = WindowChrome.GetWindowChrome(window);

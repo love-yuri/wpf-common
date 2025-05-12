@@ -206,11 +206,11 @@
     </Style>
     
     
-    <Style TargetType="{x:Type components:ToolbarWindow}">
+    <Style TargetType="{x:Type components:ModernWindow }">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type components:ToolbarWindow}">
+                <ControlTemplate TargetType="{x:Type components:ModernWindow }">
                     <!-- 主体布局 -->
                     <Grid>
                         <!-- 设置背景为蓝白渐变 -->
@@ -257,7 +257,7 @@
                                 <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Button Width="36" Height="40"
                                         x:Name="TopMostButton"
-                                        Command="{Binding PinDownCommand, RelativeSource={RelativeSource AncestorType=components:ToolbarWindow}}"
+                                        Command="{Binding PinDownCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
                                         Style="{StaticResource TopMostButtonStyle}"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                         <Image x:Name="PART_PinDownIcon" Width="16" Height="16">
@@ -274,14 +274,14 @@
                                         </Image>
                                     </Button>
                                     <Button Width="46" Height="40"
-                                        Command="{Binding MinimizeCommand, RelativeSource={RelativeSource AncestorType=components:ToolbarWindow}}"
+                                        Command="{Binding MinimizeCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
                                         Style="{StaticResource WindowControlButtonStyle}"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                         <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1"
                                             Stretch="Uniform" Width="10" />
                                     </Button>
                                     <Button Width="46" Height="40"
-                                        Command="{Binding MaximizeCommand, RelativeSource={RelativeSource AncestorType=components:ToolbarWindow}}"
+                                        Command="{Binding MaximizeCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
                                         Style="{StaticResource WindowControlButtonStyle}"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                         <Path Data="M0,0 L10,0 L10,10 L0,10 Z"
@@ -289,7 +289,7 @@
                                             Stroke="White" StrokeThickness="1" Stretch="Uniform" Width="10" />
                                     </Button>
                                     <Button Width="46" Height="40"
-                                        Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=components:ToolbarWindow}}"
+                                        Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
                                         Style="{StaticResource CloseButtonStyle}"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                         <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
