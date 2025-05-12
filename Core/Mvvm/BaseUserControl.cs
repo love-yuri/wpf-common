@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
-using LoveYuri.Core.Di;
+using LoveYuri.Core.Service;
 
 namespace LoveYuri.Core.Mvvm {
     /// <summary>

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 // ReSharper disable UnusedMember.Global
 
-namespace LoveYuri.Core.Di {
+namespace LoveYuri.Core.Service {
     /// <summary>
     /// 全局di服务
     /// </summary>
