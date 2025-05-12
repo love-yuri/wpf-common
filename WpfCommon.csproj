@@ -5,7 +5,7 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <RootNamespace>LoveYuri</RootNamespace>
         <AssemblyName>love-yuri</AssemblyName>
-        <Version>1.1</Version>
+        <Version>1.1.0</Version>
         <Authors>love-yuri</Authors>
         <Description>基于.net48构建的wpf常用工具库</Description>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
