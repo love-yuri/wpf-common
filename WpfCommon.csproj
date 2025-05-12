@@ -5,7 +5,7 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <RootNamespace>LoveYuri</RootNamespace>
         <AssemblyName>love-yuri</AssemblyName>
-        <Version>1.0</Version>
+        <Version>1.1</Version>
         <Authors>love-yuri</Authors>
         <Description>基于.net48构建的wpf常用工具库</Description>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -27,46 +27,6 @@
         <!-- di依赖注入 -->
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1"/>
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1"/>
-        
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Update="Properties\AssemblyInfo.cs">
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
-    <ItemGroup>
-      <Page Update="Themes\Compoents\Componets.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Compoents\ToggleSwitchStyle.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Compoents\ToolbarWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Compoents\ToolButtonStyle.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Notification\ErrorMessage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Notification\InfoMessage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Notification\Notification.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Notification\SuccessMessage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Notification\WarningMessage.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
-      <Page Update="Themes\Svg\Svg.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
     </ItemGroup>
 
 </Project>
