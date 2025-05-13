@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace LoveYuri.Utils {

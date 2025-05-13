@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, // 不在页面中查找主题特定资源
