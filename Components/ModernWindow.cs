@@ -16,7 +16,7 @@ namespace LoveYuri.Components {
         static ModernWindow () {
             // 设置默认样式资源
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(ModernWindow ),
+                typeof(ModernWindow),
                 new FrameworkPropertyMetadata(typeof(ModernWindow ))
             );
         }
