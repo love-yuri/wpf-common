@@ -1,12 +1,14 @@
 using System;
 using System.Windows.Media;
+// ReSharper disable UnusedType.Global
+// ReSharper disable UnusedMember.Global
 
 namespace LoveYuri.Utils {
     /// <summary>
     /// 关于字符串的常用方法
     /// </summary>
     public static class StringUtils {
-        
+
         /// <summary>
         /// 将字符串转换成double类型，如果转换失败则返回默认值
         /// </summary>
@@ -20,7 +22,7 @@ namespace LoveYuri.Utils {
         /// 将字符串转换成int类型，如果转换失败则返回默认值
         /// </summary>
         /// <param name="str">待转换的字符串</param>
-        /// <param name="defaultValue">失败后的值，默认0</param> 
+        /// <param name="defaultValue">失败后的值，默认0</param>
         public static int ToInt(this string str, int defaultValue = 0) {
             return int.TryParse(str, out int value) ? value : defaultValue;
         }

@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedType.Global
 
 namespace LoveYuri.Utils {
-    
+
     /// <summary>
     /// 随机数工具类，每次new都会生成唯一random类用于后续素有随机数种子
     /// </summary>
     public class RandomUtils {
         private Random random;
-        
+
         /// <summary>
         /// 本轮使用的随机数种子
         /// </summary>
@@ -49,7 +50,7 @@ namespace LoveYuri.Utils {
                 }
             }
         }
-        
+
         /// <summary>
         /// 在指定范围内随机产生下一个整数，且该数在该轮次从未出现过
         /// 如果所有数都出现了，将会清空计数器重新开始
@@ -60,7 +61,7 @@ namespace LoveYuri.Utils {
         public int RandomNext(string name, int min, int max)
         {
             int data = Random.Next(min, max);
-            
+
             if (!valueMap.TryGetValue(name, out var history)) {
                 valueMap.Add(name, new HashSet<int> { data });
                 return data;
@@ -77,9 +78,9 @@ namespace LoveYuri.Utils {
             while (history.Contains(data)) {
                 data = Random.Next(min, max);
             }
-            
+
             history.Add(data);
             return data;
-        } 
+        }
     }
 }

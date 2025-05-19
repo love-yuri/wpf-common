@@ -2,9 +2,10 @@ using System;
 using System.Timers;
 using System.Windows.Threading;
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMethodReturnValue.Global
 
 namespace LoveYuri.Utils {
-    
+
     /// <summary>
     /// 定时器相关的工具
     /// </summary>
@@ -33,7 +34,7 @@ namespace LoveYuri.Utils {
             };
 
             timer.Start();
-            
+
             // 返回一个可以用于取消定时器的对象
             return timer;
         }
@@ -47,7 +48,7 @@ namespace LoveYuri.Utils {
         /// <param name="dispatcher">指定的UI调度器，为null则在后台线程执行</param>
         public static Timer Interval(this int milliseconds, Action func, int? n = null, Dispatcher dispatcher = null) {
             var timer = new Timer(milliseconds);
-        
+
             timer.AutoReset = true;
             var count = 0;
             timer.Elapsed += (_, __) => {
@@ -68,6 +69,6 @@ namespace LoveYuri.Utils {
 
             timer.Start();
             return timer;
-        } 
+        }
     }
 }
