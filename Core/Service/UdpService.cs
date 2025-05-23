@@ -16,7 +16,7 @@ namespace LoveYuri.Core.Service {
     /// 收到消息时的回调委托
     /// </summary>
     /// <param name="message">接收到的消息内容</param>
-    public delegate void UdpMessageReceivedEventHandler(string message);
+    public delegate void UdpMessageEventHandler(string message);
 
     /// <summary>
     /// Udp基础服务
@@ -55,12 +55,12 @@ namespace LoveYuri.Core.Service {
         /// <summary>
         /// 收到消息事件回调
         /// </summary>
-        public event UdpMessageReceivedEventHandler HasReceiveMsg;
+        public event UdpMessageEventHandler HasReceiveMsg;
 
         /// <summary>
         /// 发送消息回调
         /// </summary>
-        public event UdpMessageReceivedEventHandler HasSendMsg;
+        public event UdpMessageEventHandler HasSendMsg;
 
         /// <summary>
         /// service的唯一key
@@ -124,10 +124,10 @@ namespace LoveYuri.Core.Service {
                 byte[] data = Encoding.ASCII.GetBytes(message);
                 int res = udpClient.Send(data, data.Length, remoteEndPoint);
 
-                if (res == data.Length) {
-                    HasSendMsg?.Invoke(message);
+                if (res != data.Length) {
+                    return false;
                 }
-
+                HasSendMsg?.Invoke(message);
                 return true;
             } catch (Exception ex) {
                 Log.Error($"发送消息时发生错误({Port}): {ex.Message}");
@@ -152,14 +152,16 @@ namespace LoveYuri.Core.Service {
                     // 检查是否已释放
                     while (!receiveCts.Token.IsCancellationRequested && !disposed) {
                         if (!IsConnected) break;
-
                         var result = await udpClient.ReceiveAsync();
-
                         if (!IsConnected) break;
 
-                        // 处理接收到的消息
+                        // 处理接收到的消息-捕获异常，防止监听中断
                         string message = Encoding.ASCII.GetString(result.Buffer);
-                        HasReceiveMsg?.Invoke(message);
+                        try {
+                            HasReceiveMsg?.Invoke(message);
+                        } catch (Exception exception) {
+                            Log.Error($"处理数据({message})回调发生异常: {exception.Message}");
+                        }
                     }
                 } catch (OperationCanceledException) {
                     // 取消操作，正常退出
