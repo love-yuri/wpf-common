@@ -12,11 +12,16 @@ namespace LoveYuri.Core.Service {
     /// </summary>
     public static class DiService {
         private static IHost _host;
-        
+
         /// <summary>
         /// 全局服务提供
         /// </summary>
         private static IServiceProvider ServiceProvider => _host?.Services;
+
+        /// <summary>
+        /// 检查DI服务是否已初始化
+        /// </summary>
+        public static bool IsInitialized => ServiceProvider != null;
 
         /// <summary>
         /// 获取某个类型的依赖服务，如果不存在则报错
@@ -25,21 +30,16 @@ namespace LoveYuri.Core.Service {
             if (ServiceProvider == null) {
                 throw new InvalidOperationException("DI服务尚未初始化");
             }
-            
+
             return ServiceProvider.GetRequiredService<T>();
         }
-        
+
         /// <summary>
         /// 获取某个类型的依赖服务，如果不存在则返回null
         /// </summary>
         public static T GetService<T>() where T : class {
             return ServiceProvider?.GetService<T>();
         }
-
-        /// <summary>
-        /// 检查DI服务是否已初始化
-        /// </summary>
-        public static bool IsInitialized => _host != null;
 
         /// <summary>
         /// 注册DiService
@@ -54,10 +54,10 @@ namespace LoveYuri.Core.Service {
                     // 注册服务
                     register.Invoke(service);
                 }).Build();
-            
+
             // 启动时启动服务
             application.Startup += (_, __) => _host.Start();
-            
+
             // 关闭时停止服务
             application.Exit += (_, __) => _host.Dispose();
         }
