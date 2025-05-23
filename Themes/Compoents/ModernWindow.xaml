@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Svg/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <!-- 窗口控制按钮样式 -->
     <Style x:Key="WindowControlButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
@@ -14,7 +14,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border 
+                    <Border
                         x:Name="border"
                         Background="{TemplateBinding Background}"
                         CornerRadius="5"
@@ -69,7 +69,7 @@
                             Margin="{TemplateBinding Padding}"
                             RecognizesAccessKey="True"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         />
                     </Border>
                 </ControlTemplate>
@@ -133,14 +133,14 @@
                             Margin="{TemplateBinding Padding}"
                             RecognizesAccessKey="True"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- 固定窗口为顶层按钮样式 -->
     <Style x:Key="TopMostButtonStyle" TargetType="Button" BasedOn="{StaticResource WindowControlButtonStyle}">
         <Setter Property="Template">
@@ -197,114 +197,108 @@
                             Margin="{TemplateBinding Padding}"
                             RecognizesAccessKey="True"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
+
     <Style TargetType="{x:Type components:ModernWindow }">
-        <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type components:ModernWindow }">
                     <!-- 主体布局 -->
-                    <Grid>
-                        <!-- 设置背景为蓝白渐变 -->
-                        <Grid.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="White" Offset="0" />
-                                <GradientStop Color="#c7dcee" Offset="1" />
-                            </LinearGradientBrush>
-                        </Grid.Background>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" /> <!-- 顶栏 -->
-                            <RowDefinition Height="*" />  <!-- 内容区 -->
-                        </Grid.RowDefinitions>
-
-                        <!-- 顶栏 -->
-                        <Border Grid.Row="0">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                                    <GradientStop Color="#F8CDDA" Offset="0" />
-                                    <GradientStop Color="#1D2B64" Offset="1" />
+                    <Border Padding="{TemplateBinding Margin}">
+                        <Grid>
+                            <!-- 设置背景为蓝白渐变 -->
+                            <Grid.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="White" Offset="0" />
+                                    <GradientStop Color="#c7dcee" Offset="1" />
                                 </LinearGradientBrush>
-                            </Border.Background>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+                            </Grid.Background>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40" /> <!-- 顶栏 -->
+                                <RowDefinition Height="*" />  <!-- 内容区 -->
+                            </Grid.RowDefinitions>
 
-                                <!-- 应用图标和标题 -->
-                                <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0"
-                                    VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
-                                        Foreground="White" FontSize="16"
-                                        FontWeight="900" VerticalAlignment="Center">
-                                        <TextBlock.Effect>
-                                            <DropShadowEffect ShadowDepth="1" Direction="330" Color="#80000000" 
-                                                            BlurRadius="2" Opacity="0.5"/>
-                                        </TextBlock.Effect>
-                                    </TextBlock>
-                                </StackPanel>
+                            <!-- 顶栏 -->
+                            <Border Grid.Row="0" Background="{TemplateBinding TopbarBackgroundColor}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                                <!-- 窗口控制按钮 -->
-                                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Width="36" Height="40"
-                                        x:Name="TopMostButton"
-                                        Command="{Binding PinDownCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
-                                        Style="{StaticResource TopMostButtonStyle}"
-                                        WindowChrome.IsHitTestVisibleInChrome="True">
-                                        <Image x:Name="PART_PinDownIcon" Width="16" Height="16">
-                                            <Image.Style>
-                                                <Style TargetType="Image">
-                                                    <Setter Property="Source" Value="{StaticResource PinDownDrawingImage}" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Topmost, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
-                                                            <Setter Property="Source" Value="{StaticResource PinDownedDrawingImage}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Image.Style>
-                                        </Image>
-                                    </Button>
-                                    <Button Width="46" Height="40"
-                                        Command="{Binding MinimizeCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
-                                        Style="{StaticResource WindowControlButtonStyle}"
-                                        WindowChrome.IsHitTestVisibleInChrome="True">
-                                        <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1"
-                                            Stretch="Uniform" Width="10" />
-                                    </Button>
-                                    <Button Width="46" Height="40"
-                                        Command="{Binding MaximizeCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
-                                        Style="{StaticResource WindowControlButtonStyle}"
-                                        WindowChrome.IsHitTestVisibleInChrome="True">
-                                        <Path Data="M0,0 L10,0 L10,10 L0,10 Z"
-                                            x:Name="PART_MaximizeIcon"
-                                            Stroke="White" StrokeThickness="1" Stretch="Uniform" Width="10" />
-                                    </Button>
-                                    <Button Width="46" Height="40"
-                                        Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
-                                        Style="{StaticResource CloseButtonStyle}"
-                                        WindowChrome.IsHitTestVisibleInChrome="True">
-                                        <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
-                                            Stretch="Uniform" Width="10" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
+                                    <!-- 应用图标和标题 -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0"
+                                        VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            Foreground="White" FontSize="16"
+                                            FontWeight="900" VerticalAlignment="Center">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect ShadowDepth="1" Direction="330" Color="#80000000"
+                                                                BlurRadius="2" Opacity="0.5"/>
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </StackPanel>
 
-                        <!-- 具体内容 -->
-                        <Border Grid.Row="1" Padding="6">
-                            <!-- 主内容区域 -->
-                            <ContentPresenter Content="{TemplateBinding Content}" />
-                        </Border>
-                    </Grid>
+                                    <!-- 窗口控制按钮 -->
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Width="36" Height="40"
+                                            x:Name="TopMostButton"
+                                            Command="{Binding PinDownCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
+                                            Style="{StaticResource TopMostButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                            <Image x:Name="PART_PinDownIcon" Width="16" Height="16">
+                                                <Image.Style>
+                                                    <Style TargetType="Image">
+                                                        <Setter Property="Source" Value="{StaticResource PinDownDrawingImage}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Topmost, RelativeSource={RelativeSource AncestorType=Window}}" Value="True">
+                                                                <Setter Property="Source" Value="{StaticResource PinDownedDrawingImage}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Image.Style>
+                                            </Image>
+                                        </Button>
+                                        <Button Width="46" Height="40"
+                                            Command="{Binding MinimizeCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
+                                            Style="{StaticResource WindowControlButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                            <Path Data="M0,0 L10,0" Stroke="White" StrokeThickness="1"
+                                                Stretch="Uniform" Width="10" />
+                                        </Button>
+                                        <Button Width="46" Height="40"
+                                            Command="{Binding MaximizeCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
+                                            Style="{StaticResource WindowControlButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                            <Path Data="M0,0 L10,0 L10,10 L0,10 Z"
+                                                x:Name="PART_MaximizeIcon"
+                                                Stroke="White" StrokeThickness="1" Stretch="Uniform" Width="10" />
+                                        </Button>
+                                        <Button Width="46" Height="40"
+                                            Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
+                                            Style="{StaticResource CloseButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                            <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
+                                                Stretch="Uniform" Width="10" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- 具体内容 -->
+                            <Border Grid.Row="1" Padding="6">
+                                <!-- 主内容区域 -->
+                                <ContentPresenter Content="{TemplateBinding Content}" />
+                            </Border>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

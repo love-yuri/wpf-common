@@ -10,8 +10,28 @@ using LoveYuri.Core.Mvvm;
 namespace LoveYuri.Components {
     public class ModernWindow : Window {
         public const string PartMaximizeIcon = "PART_MaximizeIcon";
-        
-        private Path MaximizeIcon => GetTemplateChild(PartMaximizeIcon) as Path;
+        private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";
+        private const string NormalIconPath = "M0,0 L10,0 L10,10 L0,10 Z";
+
+        /// <summary>
+        /// 状态栏的背景颜色
+        /// </summary>
+        public static readonly DependencyProperty TopbarBackgroundColorProperty = DependencyProperty.Register(
+            nameof(TopbarBackgroundColor), typeof(Brush), typeof(ModernWindow), new PropertyMetadata(new LinearGradientBrush {
+                StartPoint = new Point(0, 0),  // 从左开始
+                EndPoint = new Point(1, 0),    // 到右结束
+                GradientStops = new GradientStopCollection {
+                    new GradientStop(Color.FromRgb(0x3B, 0x8D, 0x99), 0.0),  // 起始色 #3b8d99
+                    new GradientStop(Color.FromRgb(0x6B, 0x6B, 0x83), 0.5),  // 中间色 #6b6b83
+                    new GradientStop(Color.FromRgb(0xAA, 0x4B, 0x6B), 1.0)   // 结束色 #aa4b6b
+                }
+            })
+        );
+
+        public Brush TopbarBackgroundColor {
+            get => (Brush)GetValue(TopbarBackgroundColorProperty);
+            set => SetValue(TopbarBackgroundColorProperty, value);
+        }
 
         static ModernWindow () {
             // 设置默认样式资源
@@ -50,10 +70,17 @@ namespace LoveYuri.Components {
         private void Maximize()
         {
             WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-            MaximizeIcon.Data = Geometry.Parse(WindowState == WindowState.Maximized
-                ? "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z"
-                : "M0,0 L10,0 L10,10 L0,10 Z"
-            ); 
+        }
+
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) {
+            base.OnRenderSizeChanged(sizeInfo);
+            Margin = new Thickness(WindowState == WindowState.Maximized ? 5 : 0);
+            if (GetTemplateChild(PartMaximizeIcon) is Path maximizeIcon) {
+                maximizeIcon.Data = Geometry.Parse(WindowState == WindowState.Maximized
+                    ? MaximizeIconPath
+                    : NormalIconPath
+                );
+            }
         }
 
         /// <summary>
@@ -63,7 +90,7 @@ namespace LoveYuri.Components {
         {
             WindowState = WindowState.Minimized;
         }
-        
+
         /// <summary>
         /// 钉住窗口，切换窗口的置顶状态
         /// </summary>
