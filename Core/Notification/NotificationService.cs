@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using LoveYuri.Components;
+using LoveYuri.Controls;
 
 namespace LoveYuri.Core.Notification {
 

@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace LoveYuri.Components {
+namespace LoveYuri.Controls {
     /// <summary>
     /// 显示状态的checkbox
     /// </summary>

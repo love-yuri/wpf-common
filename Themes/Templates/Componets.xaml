@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/ToggleSwitchStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/ToolButtonStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/ModernWindow.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

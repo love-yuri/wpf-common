@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace LoveYuri.Components {
+namespace LoveYuri.Controls {
     /// <summary>
     /// 阀门开关按钮
     /// </summary>

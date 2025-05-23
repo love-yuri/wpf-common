@@ -4,9 +4,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:notification="clr-namespace:LoveYuri.Core.Notification"
     mc:Ignorable="d">
-    
+
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Svg/Svg.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Icons/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="notification:InfoNotificationMessage">

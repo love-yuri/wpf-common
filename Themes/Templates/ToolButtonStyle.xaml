@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:components="clr-namespace:LoveYuri.Components">
+    xmlns:controls="clr-namespace:LoveYuri.Controls">
 
     <!-- 加载中动画 -->
     <Style x:Key="LoadingSpinnerStyle" TargetType="Control">
@@ -12,7 +12,7 @@
                             <TextBlock>
                                 <Run Text="正在" />
                                 <Run
-                                    Text="{Binding RelativeSource={RelativeSource AncestorType=components:ToolButton}, Path=Content}" />
+                                    Text="{Binding RelativeSource={RelativeSource AncestorType=controls:ToolButton}, Path=Content}" />
                                 <Run Text=" " />
                             </TextBlock>
                             <Grid>
@@ -82,7 +82,7 @@
     </Style>
 
     <!-- 工具按钮样式 -->
-    <Style TargetType="{x:Type components:ToolButton}">
+    <Style TargetType="{x:Type controls:ToolButton}">
         <Setter Property="Foreground" Value="White" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="12 10" />
@@ -90,7 +90,7 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="components:ToolButton">
+                <ControlTemplate TargetType="controls:ToolButton">
                     <Border x:Name="border"
                         Padding="{TemplateBinding Padding}"
                         CornerRadius="6"

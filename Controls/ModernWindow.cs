@@ -7,7 +7,7 @@ using LoveYuri.Core.Mvvm;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace LoveYuri.Components {
+namespace LoveYuri.Controls {
     public class ModernWindow : Window {
         public const string PartMaximizeIcon = "PART_MaximizeIcon";
         private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";

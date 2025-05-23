@@ -1,7 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace LoveYuri.Components {
+namespace LoveYuri.Controls {
     /// <summary>
     /// 开关控件，是自用应用样式的checkbox
     /// </summary>
