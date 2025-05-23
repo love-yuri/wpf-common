@@ -7,7 +7,7 @@ using System.Windows.Threading;
 using LoveYuri.Components;
 
 namespace LoveYuri.Core.Notification {
-    
+
     /// <summary>
     /// 通知服务
     /// </summary>
@@ -89,7 +89,7 @@ namespace LoveYuri.Core.Notification {
         /// <param name="autoClose">是否自动关闭</param>
         /// <param name="duration">持续时间</param>
         public void ShowNotification(
-            string message, 
+            string message,
             NotificationType type = NotificationType.Success,
             bool autoClose = true,
             int duration = DefaultDuration
@@ -97,13 +97,13 @@ namespace LoveYuri.Core.Notification {
             // 异步通知
             window.Dispatcher.InvokeAsync(() => {
                 var notification = NotificationMessage.GetNotificationMessage(message, type);
-                
+
                 // 添加鼠标进入事件处理
                 notification.MouseEnter += (sender, args) => {
                     isMouseOverAnyNotification = true;
                     PauseAllTimers();
                 };
-                
+
                 // 添加鼠标离开事件处理
                 notification.MouseLeave += (sender, args) => {
                     isMouseOverAnyNotification = false;
@@ -113,30 +113,32 @@ namespace LoveYuri.Core.Notification {
                 // 添加到容器和活动通知列表
                 container.Children.Add(notification);
                 activeNotifications.Add(notification);
-                
+
                 // 关联关闭
                 notification.Closed += (sender, args) => {
                     container.Children.Remove(notification);
                     activeNotifications.Remove(notification);
                 };
-                
-                // 自动关闭 
-                if (autoClose) {
-                    var timer = new DispatcherTimer {
-                        Interval = TimeSpan.FromMilliseconds(duration)
-                    };
 
-                    // 关联timer
-                    notification.CloseTimer = timer;
-                    timer.Tick += (sender, args) => {
-                        timer.Stop();
-                        notification.BeginFadeOutAnimation();
-                    };
-                
-                    // 如果当前没有鼠标悬浮在任何通知上，则启动计时器
-                    if (!isMouseOverAnyNotification) {
-                        timer.Start();
-                    }
+                // 自动关闭
+                if (!autoClose) {
+                    return;
+                }
+
+                var timer = new DispatcherTimer {
+                    Interval = TimeSpan.FromMilliseconds(duration)
+                };
+
+                // 关联timer
+                notification.CloseTimer = timer;
+                timer.Tick += (sender, args) => {
+                    timer.Stop();
+                    notification.BeginFadeOutAnimation();
+                };
+
+                // 如果当前没有鼠标悬浮在任何通知上，则启动计时器
+                if (!isMouseOverAnyNotification) {
+                    timer.Start();
                 }
             });
         }
