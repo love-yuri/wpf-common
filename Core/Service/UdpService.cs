@@ -13,16 +13,10 @@ using LoveYuri.Utils;
 
 namespace LoveYuri.Core.Service {
     /// <summary>
-    /// 收到消息委托
+    /// 收到消息时的回调委托
     /// </summary>
-    public delegate void UdpMessageEvent(string msg);
-
-    /// <summary>
-    /// UDP连接状态变更委托
-    /// </summary>
-    /// <param name="isConnected">是否已连接</param>
-    /// <param name="message">状态消息</param>
-    public delegate void UdpConnectionStateEvent(bool isConnected, string message);
+    /// <param name="message">接收到的消息内容</param>
+    public delegate void UdpMessageReceivedEventHandler(string message);
 
     /// <summary>
     /// Udp基础服务
@@ -61,12 +55,12 @@ namespace LoveYuri.Core.Service {
         /// <summary>
         /// 收到消息事件回调
         /// </summary>
-        public event UdpMessageEvent HasReceiveMsg;
+        public event UdpMessageReceivedEventHandler HasReceiveMsg;
 
         /// <summary>
         /// 发送消息回调
         /// </summary>
-        public event UdpMessageEvent HasSendMsg;
+        public event UdpMessageReceivedEventHandler HasSendMsg;
 
         /// <summary>
         /// service的唯一key
