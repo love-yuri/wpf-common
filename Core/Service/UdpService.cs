@@ -175,6 +175,7 @@ namespace LoveYuri.Core.Service {
                     }
                 } finally {
                     isListening = false;
+                    Log.Info($"已停止 {Key} 的监听...");
                 }
             }, receiveCts.Token);
         }
@@ -186,12 +187,11 @@ namespace LoveYuri.Core.Service {
             try {
                 receiveCts?.Cancel(true);
 
-                if (udpClient != null) {
-                    udpClient.Close();
-                    udpClient = null;
+                if (udpClient == null) {
+                    return;
                 }
-
-                Log.Info($"正在停止监听: {Key}");
+                udpClient.Close();
+                udpClient = null;
             } catch (Exception ex) {
                 Log.Error($"停止监听时发生错误({Port}): {ex.Message}");
             }
