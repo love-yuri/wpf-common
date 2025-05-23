@@ -237,11 +237,11 @@
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0"
                                         VerticalAlignment="Center">
                                         <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            Foreground="White" FontSize="16"
-                                            FontWeight="900" VerticalAlignment="Center">
+                                            Foreground="White" FontSize="17"
+                                            FontWeight="700" VerticalAlignment="Center">
                                             <TextBlock.Effect>
                                                 <DropShadowEffect ShadowDepth="1" Direction="330" Color="#80000000"
-                                                                BlurRadius="2" Opacity="0.5"/>
+                                                                BlurRadius="2" Opacity="0.2"/>
                                             </TextBlock.Effect>
                                         </TextBlock>
                                     </StackPanel>
