@@ -3,6 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Compoents/ToggleSwitchStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Compoents/ToolButtonStyle.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Compoents/ToolbarWindow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Compoents/ModernWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
