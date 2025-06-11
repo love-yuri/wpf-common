@@ -1,13 +1,40 @@
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Shell;
 using LoveYuri.Core.Mvvm;
+using LoveYuri.Core.Service;
 
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace LoveYuri.Controls {
+
+    /// <summary>
+    /// 泛型版本
+    /// </summary>
+    /// <typeparam name="TVm"></typeparam>
+    public class ModernWindow<TVm> : ModernWindow where TVm: class {
+        protected ModernWindow() {
+            DataContext = DiService.GetRequiredService<TVm>();
+        }
+
+        /// <summary>
+        /// 线程安全的获取当前view的viewModel
+        /// 如果不存在则返回null
+        /// </summary>
+        protected TVm ViewModel {
+            get {
+                if (Dispatcher.CheckAccess()) {
+                    return DataContext as TVm ?? throw new InvalidOperationException($"DataContext 不是 {typeof(TVm).Name} 类型");
+                }
+
+                return Dispatcher.Invoke(() => DataContext as TVm ?? throw new InvalidOperationException($"DataContext 不是 {typeof(TVm).Name} 类型"));
+            }
+        }
+    }
+
     public class ModernWindow : Window {
         public const string PartMaximizeIcon = "PART_MaximizeIcon";
         private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";

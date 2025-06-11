@@ -21,12 +21,12 @@
         <None Include="LICENSE" Pack="true" PackagePath=""/>
         <None Include="README.md" Pack="true" PackagePath=""/>
     </ItemGroup>
-    
+
     <!-- 依赖 -->
     <ItemGroup>
         <!-- di依赖注入 -->
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" PrivateAssets="none" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" PrivateAssets="none" />
     </ItemGroup>
 
 </Project>
