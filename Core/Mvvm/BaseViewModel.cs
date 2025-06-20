@@ -27,7 +27,7 @@ namespace LoveYuri.Core.Mvvm {
                 var synchronizationContext = SynchronizationContext.Current;
                 if (synchronizationContext != null) {
                     synchronizationContext.Post(
-                        _ => del.Invoke(this, args), 
+                        _ => del.Invoke(this, args),
                         null
                     );
                 } else {
@@ -42,11 +42,19 @@ namespace LoveYuri.Core.Mvvm {
         /// <param name="field">字段引用</param>
         /// <param name="value">待更新的数据</param>
         /// <param name="propertyName">属性名称</param>
+        /// <param name="dependentProperties">更新成功的附属通知</param>
         /// <returns>返回是否更新成功</returns>
-        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null) {
-            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        protected bool SetField<T>(ref T field, T value,  [CallerMemberName] string propertyName = null, string[] dependentProperties = null) {
+            if (EqualityComparer<T>.Default.Equals(field, value)) {
+                return false;
+            }
             field = value;
             OnPropertyChanged(propertyName);
+            if (dependentProperties?.Length > 0) {
+                foreach (string dependentProperty in dependentProperties) {
+                    OnPropertyChanged(dependentProperty);
+                }
+            }
             return true;
         }
 
