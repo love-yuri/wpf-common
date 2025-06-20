@@ -4,5 +4,6 @@
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/ToggleSwitchStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/ToolButtonStyle.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/ModernWindow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/Tabs.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
