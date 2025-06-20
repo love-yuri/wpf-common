@@ -11,12 +11,12 @@ namespace LoveYuri.Core.Service {
     /// 全局di服务
     /// </summary>
     public static class DiService {
-        private static IHost _host;
+        private static IHost host;
 
         /// <summary>
         /// 全局服务提供
         /// </summary>
-        private static IServiceProvider ServiceProvider => _host?.Services;
+        private static IServiceProvider ServiceProvider => host?.Services;
 
         /// <summary>
         /// 检查DI服务是否已初始化
@@ -35,6 +35,17 @@ namespace LoveYuri.Core.Service {
         }
 
         /// <summary>
+        /// 获取某个类型的依赖服务，如果不存在则报错
+        /// </summary>
+        public static object GetRequiredService(Type type) {
+            if (ServiceProvider == null) {
+                throw new InvalidOperationException("DI服务尚未初始化");
+            }
+
+            return ServiceProvider.GetRequiredService(type);
+        }
+
+        /// <summary>
         /// 获取某个类型的依赖服务，如果不存在则返回null
         /// </summary>
         public static T GetService<T>() where T : class {
@@ -47,7 +58,7 @@ namespace LoveYuri.Core.Service {
         /// <param name="application">待注册的application</param>
         /// <param name="register">服务注册函数</param>
         public static void RegisterDiService(this Application application, Action<IServiceCollection> register) {
-            _host = Host
+            host = Host
                 .CreateDefaultBuilder()
                 .ConfigureLogging(logging => logging.ClearProviders()) // 移除所有日志提供程序
                 .ConfigureServices((_, service) => {
@@ -56,10 +67,10 @@ namespace LoveYuri.Core.Service {
                 }).Build();
 
             // 启动时启动服务
-            application.Startup += (_, __) => _host.Start();
+            application.Startup += (_, __) => host.Start();
 
             // 关闭时停止服务
-            application.Exit += (_, __) => _host.Dispose();
+            application.Exit += (_, __) => host.Dispose();
         }
     }
 }
