@@ -6,71 +6,71 @@ using Microsoft.Extensions.Logging;
 
 // ReSharper disable UnusedMember.Global
 
-namespace LoveYuri.Core.Service {
+namespace LoveYuri.Core.Service;
+
+/// <summary>
+/// 全局di服务
+/// </summary>
+public static class DiService {
+    private static IHost host;
+
     /// <summary>
-    /// 全局di服务
+    /// 全局服务提供
     /// </summary>
-    public static class DiService {
-        private static IHost host;
+    private static IServiceProvider ServiceProvider => host?.Services;
 
-        /// <summary>
-        /// 全局服务提供
-        /// </summary>
-        private static IServiceProvider ServiceProvider => host?.Services;
+    /// <summary>
+    /// 检查DI服务是否已初始化
+    /// </summary>
+    public static bool IsInitialized => ServiceProvider != null;
 
-        /// <summary>
-        /// 检查DI服务是否已初始化
-        /// </summary>
-        public static bool IsInitialized => ServiceProvider != null;
-
-        /// <summary>
-        /// 获取某个类型的依赖服务，如果不存在则报错
-        /// </summary>
-        public static T GetRequiredService<T>() {
-            if (ServiceProvider == null) {
-                throw new InvalidOperationException("DI服务尚未初始化");
-            }
-
-            return ServiceProvider.GetRequiredService<T>();
+    /// <summary>
+    /// 获取某个类型的依赖服务，如果不存在则报错
+    /// </summary>
+    public static T GetRequiredService<T>() {
+        if (ServiceProvider == null) {
+            throw new InvalidOperationException("DI服务尚未初始化");
         }
 
-        /// <summary>
-        /// 获取某个类型的依赖服务，如果不存在则报错
-        /// </summary>
-        public static object GetRequiredService(Type type) {
-            if (ServiceProvider == null) {
-                throw new InvalidOperationException("DI服务尚未初始化");
-            }
+        return ServiceProvider.GetRequiredService<T>();
+    }
 
-            return ServiceProvider.GetRequiredService(type);
+    /// <summary>
+    /// 获取某个类型的依赖服务，如果不存在则报错
+    /// </summary>
+    public static object GetRequiredService(Type type) {
+        if (ServiceProvider == null) {
+            throw new InvalidOperationException("DI服务尚未初始化");
         }
 
-        /// <summary>
-        /// 获取某个类型的依赖服务，如果不存在则返回null
-        /// </summary>
-        public static T GetService<T>() where T : class {
-            return ServiceProvider?.GetService<T>();
-        }
+        return ServiceProvider.GetRequiredService(type);
+    }
 
-        /// <summary>
-        /// 注册DiService
-        /// </summary>
-        /// <param name="application">待注册的application</param>
-        /// <param name="register">服务注册函数</param>
-        public static void RegisterDiService(this Application application, Action<IServiceCollection> register) {
-            host = Host
-                .CreateDefaultBuilder()
-                .ConfigureLogging(logging => logging.ClearProviders()) // 移除所有日志提供程序
-                .ConfigureServices((_, service) => {
-                    // 注册服务
-                    register.Invoke(service);
-                }).Build();
+    /// <summary>
+    /// 获取某个类型的依赖服务，如果不存在则返回null
+    /// </summary>
+    public static T GetService<T>() where T : class {
+        return ServiceProvider?.GetService<T>();
+    }
 
-            // 启动时启动服务
-            application.Startup += (_, __) => host.Start();
+    /// <summary>
+    /// 注册DiService
+    /// </summary>
+    /// <param name="application">待注册的application</param>
+    /// <param name="register">服务注册函数</param>
+    public static void RegisterDiService(this Application application, Action<IServiceCollection> register) {
+        host = Host
+            .CreateDefaultBuilder()
+            .ConfigureLogging(logging => logging.ClearProviders()) // 移除所有日志提供程序
+            .ConfigureServices((_, service) => {
+                // 注册服务
+                register.Invoke(service);
+            }).Build();
 
-            // 关闭时停止服务
-            application.Exit += (_, __) => host.Dispose();
-        }
+        // 启动时启动服务
+        application.Startup += (_, __) => host.Start();
+
+        // 关闭时停止服务
+        application.Exit += (_, __) => host.Dispose();
     }
 }
