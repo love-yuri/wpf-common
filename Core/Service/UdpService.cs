@@ -74,6 +74,11 @@ public class UdpService : IDisposable {
     public int Port => remoteEndPoint.Port;
 
     /// <summary>
+    /// 本地连接端口
+    /// </summary>
+    public int LocalPort { get; }
+
+    /// <summary>
     /// 是否已连接
     /// </summary>
     public bool IsConnected => !disposed && udpClient != null;
@@ -83,10 +88,13 @@ public class UdpService : IDisposable {
     /// </summary>
     /// <param name="remoteIp">远程IP地址</param>
     /// <param name="remotePort">远程端口</param>
-    public UdpService(string remoteIp, int remotePort) {
+    /// <param name="localPort">本地端口: 默认0为随机</param>
+    public UdpService(string remoteIp, int remotePort, int localPort = 0)
+    {
+        LocalPort = localPort;
+        remoteEndPoint = new IPEndPoint(IPAddress.Parse(remoteIp), remotePort);
         InitializeUdpClient();
         Log.Info($"连接至 {remoteIp}:{remotePort} 的UDP服务已在 {udpClient.Client.LocalEndPoint} 启动");
-        remoteEndPoint = new IPEndPoint(IPAddress.Parse(remoteIp), remotePort);
     }
 
     /// <summary>
@@ -99,7 +107,7 @@ public class UdpService : IDisposable {
     /// </summary>
     private void InitializeUdpClient() {
         try {
-            udpClient = new UdpClient(0);
+            udpClient = new UdpClient(LocalPort);
         } catch (Exception ex) {
             Log.Error($"初始化UDP客户端失败: {ex.Message}");
             throw;
@@ -153,7 +161,7 @@ public class UdpService : IDisposable {
                 // 检查是否已释放
                 while (!receiveCts.Token.IsCancellationRequested && !disposed) {
                     if (!IsConnected) break;
-                    var result = await udpClient.ReceiveAsync();
+                    var result = await udpClient.ReceiveAsync(receiveCts.Token);
                     if (!IsConnected) break;
 
                     // 处理接收到的消息-捕获异常，防止监听中断
@@ -166,10 +174,10 @@ public class UdpService : IDisposable {
                 }
             } catch (OperationCanceledException) {
                 // 取消操作，正常退出
-                Log.Info($"{Key}取消监听, 正在退出.....");
             } catch (ObjectDisposedException) {
+                // 对象已释放，正常退出
             } catch (Exception ex) {
-                Log.Error($"监听过程中发生错误({Port}): {ex.Message}");
+                Log.Error($"监听过程中发生错误({Port}): {ex.Message} {ex.StackTrace}");
 
                 if (AutoReconnect) {
                     _ = Task.Run(() => ReConnect());
