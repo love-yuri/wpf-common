@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace LoveYuri.Controls;
 
 /// <summary>
-/// 操作按钮，是自动应用样式的Button，支持加载状态
+/// 标签页控件，支持自动应用样式
 /// </summary>
 public class Tabs : TabControl {
     static Tabs() {

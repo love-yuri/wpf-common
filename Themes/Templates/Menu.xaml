@@ -1,0 +1,139 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:modern="clr-namespace:LoveYuri.Modern">
+
+    <!-- 主菜单容器样式 -->
+    <Style TargetType="modern:ModernContextMenu">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="#E0E0E0" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="4" />
+        <Setter Property="MinWidth" Value="180" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="modern:ModernContextMenu">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6"
+                            Padding="{TemplateBinding Padding}">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="12"
+                                Direction="270"
+                                Opacity="0.3"
+                                ShadowDepth="4"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel IsItemsHost="True" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="modern:ModernMenuItem" >
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="#333333" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="modern:ModernMenuItem">
+                    <Border x:Name="Border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="24" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- 图标区域 -->
+                            <ContentPresenter Grid.Column="0"
+                                x:Name="Icon"
+                                ContentSource="Icon"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Width="16" Height="16" />
+
+                            <!-- 主标题 -->
+                            <ContentPresenter Grid.Column="1"
+                                x:Name="HeaderHost"
+                                ContentSource="Header"
+                                RecognizesAccessKey="True"
+                                VerticalAlignment="Center"
+                                Margin="{TemplateBinding Padding}" />
+
+                            <!-- 快捷键显示 -->
+                            <TextBlock Grid.Column="2"
+                                Text="{TemplateBinding InputGestureText}"
+                                VerticalAlignment="Center"
+                                Foreground="#888888"
+                                FontSize="12" />
+
+                            <!-- 子菜单箭头 -->
+                            <Path Grid.Column="3"
+                                x:Name="ArrowGlyph"
+                                Data="M0,0 L4,4 L0,8 Z"
+                                Fill="#666666"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Visibility="Collapsed" />
+
+                            <!-- 子菜单弹出窗口 -->
+                            <Popup Grid.Column="0" x:Name="PART_Popup"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   HorizontalOffset="-4"
+                                   IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Placement="Right"
+                                   PopupAnimation="Fade"
+                                   VerticalOffset="-6">
+                                <Border Background="White"
+                                    BorderBrush="#E0E0E0"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    MinWidth="180"
+                                    Padding="4">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="12"
+                                            Direction="270"
+                                            Opacity="0.3"
+                                            ShadowDepth="4"
+                                            Color="#000000" />
+                                    </Border.Effect>
+                                    <StackPanel IsItemsHost="True" />
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Role" Value="SubmenuHeader">
+                            <Setter TargetName="ArrowGlyph" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#F0F7FF" />
+                            <Setter Property="Foreground" Value="#1976D2" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#E3F2FD" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#CCCCCC" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
+
