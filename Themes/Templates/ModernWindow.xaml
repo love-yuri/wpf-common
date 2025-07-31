@@ -5,6 +5,67 @@
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Icons/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <!-- 菜单按钮样式 -->
+    <Style x:Key="MenuButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="500" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4"
+                        Padding="{TemplateBinding Padding}"
+                        SnapsToDevicePixels="True">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            To="#40FFFFFF"
+                                            Duration="0:0:0.2">
+                                            <ColorAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            To="#60FFFFFF"
+                                            Duration="0:0:0.1">
+                                            <ColorAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </ColorAnimation.EasingFunction>
+                                        </ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter
+                            Focusable="False"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- 窗口控制按钮样式 -->
     <Style x:Key="WindowControlButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
@@ -205,6 +266,7 @@
         </Setter>
     </Style>
 
+    <!-- 更新后的 ModernWindow 样式，在标题左侧添加菜单按钮 -->
     <Style TargetType="{x:Type components:ModernWindow }">
         <Setter Property="Template">
             <Setter.Value>
@@ -233,9 +295,23 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <!-- 应用图标和标题 -->
-                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0"
+                                    <!-- 左侧菜单和标题区域 -->
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="10,0,0,0"
                                         VerticalAlignment="Center">
+
+                                        <!-- 菜单按钮 -->
+                                        <Button x:Name="PART_ToolbarMenuButton"
+                                            Command="{Binding ToolbarMenuClickCommand, RelativeSource={RelativeSource AncestorType=components:ModernWindow }}"
+                                            Style="{StaticResource MenuButtonStyle}"
+                                            Content="☰"
+                                            FontSize="18"
+                                            Margin="0,0,2,0"
+                                            ToolTip="应用菜单"
+                                            ContextMenu="{TemplateBinding ToolbarMenu}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True">
+                                        </Button>
+
+                                        <!-- 应用程序标题 -->
                                         <TextBlock Text="{Binding Title, RelativeSource={RelativeSource AncestorType=Window}}"
                                             Foreground="White" FontSize="17"
                                             FontWeight="700" VerticalAlignment="Center">

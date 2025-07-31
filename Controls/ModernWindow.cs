@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -37,6 +38,7 @@ public class ModernWindow<TVm> : ModernWindow where TVm: class {
 
 public class ModernWindow : Window {
     public const string PartMaximizeIcon = "PART_MaximizeIcon";
+    public const string PartToolbarMenuButton = "PART_ToolbarMenuButton";
     private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";
     private const string NormalIconPath = "M0,0 L10,0 L10,10 L0,10 Z";
 
@@ -47,17 +49,30 @@ public class ModernWindow : Window {
         nameof(TopbarBackgroundColor), typeof(Brush), typeof(ModernWindow), new PropertyMetadata(new LinearGradientBrush {
             StartPoint = new Point(0, 0),  // 从左开始
             EndPoint = new Point(1, 0),    // 到右结束
-            GradientStops = new GradientStopCollection {
-                new GradientStop(Color.FromRgb(0x3B, 0x8D, 0x99), 0.0),  // 起始色 #3b8d99
-                new GradientStop(Color.FromRgb(0x6B, 0x6B, 0x83), 0.5),  // 中间色 #6b6b83
-                new GradientStop(Color.FromRgb(0xAA, 0x4B, 0x6B), 1.0)   // 结束色 #aa4b6b
-            }
+            GradientStops = [
+                new GradientStop(Color.FromRgb(0x3B, 0x8D, 0x99), 0.0), // 起始色 #3b8d99
+                new GradientStop(Color.FromRgb(0x6B, 0x6B, 0x83), 0.5), // 中间色 #6b6b83
+                new GradientStop(Color.FromRgb(0xAA, 0x4B, 0x6B), 1.0)
+            ]
         })
+    );
+
+    /// <summary>
+    /// 状态栏的菜单
+    /// </summary>
+    public static readonly DependencyProperty ToolbarMenuProperty = DependencyProperty.Register(
+        nameof(ToolbarMenu), typeof(ContextMenu), typeof(ModernWindow),
+        new PropertyMetadata(null)
     );
 
     public Brush TopbarBackgroundColor {
         get => (Brush)GetValue(TopbarBackgroundColorProperty);
         set => SetValue(TopbarBackgroundColorProperty, value);
+    }
+
+    public ContextMenu ToolbarMenu {
+        get => GetValue(ToolbarMenuProperty) as ContextMenu;
+        set => SetValue(ToolbarMenuProperty, value);
     }
 
     static ModernWindow () {
@@ -72,15 +87,16 @@ public class ModernWindow : Window {
     /// 关闭指令
     /// </summary>
     public ICommand CloseCommand { get; }
-    public  ICommand MinimizeCommand { get; }
-    public  ICommand MaximizeCommand { get; }
-    public  ICommand PinDownCommand { get; }
-
+    public ICommand MinimizeCommand { get; }
+    public ICommand MaximizeCommand { get; }
+    public ICommand PinDownCommand { get; }
+    public ICommand ToolbarMenuClickCommand { get; }
     protected ModernWindow () {
         CloseCommand = new RelayCommand(Close);
         MaximizeCommand = new RelayCommand(Maximize);
         MinimizeCommand = new RelayCommand(Minimize);
         PinDownCommand = new RelayCommand(PinDown);
+        ToolbarMenuClickCommand = new RelayCommand(ToolbarMenuClick);
 
         var windowChrome = new WindowChrome {
             GlassFrameThickness = new Thickness(-1),
@@ -89,6 +105,16 @@ public class ModernWindow : Window {
             UseAeroCaptionButtons = false
         };
         WindowChrome.SetWindowChrome(this, windowChrome);
+    }
+
+    private void ToolbarMenuClick()
+    {
+        if (GetTemplateChild(PartToolbarMenuButton) is Button {
+            ContextMenu: not null
+        } button) {
+            button.ContextMenu.PlacementTarget = button;
+            button.ContextMenu.IsOpen = true;
+        }
     }
 
     /// <summary>

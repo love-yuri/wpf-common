@@ -12,6 +12,8 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageId>love-yuri.WpfCommon</PackageId>
         <RepositoryUrl>https://github.com/love-yuri/wpf-common</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/love-yuri/wpf-common</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
