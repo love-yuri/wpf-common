@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,8 +38,14 @@ public class ModernWindow<TVm> : ModernWindow where TVm: class {
 public class ModernWindow : Window {
     public const string PartMaximizeIcon = "PART_MaximizeIcon";
     public const string PartToolbarMenuButton = "PART_ToolbarMenuButton";
+    public const string PartNotificationGrid = "PART_NotificationGrid";
     private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";
     private const string NormalIconPath = "M0,0 L10,0 L10,10 L0,10 Z";
+    private Grid? _notificationGrid;
+    private Button? _toolbarMenuButton;
+    private Path? _resizeIconPath;
+
+    #region 依赖属性
 
     /// <summary>
     /// 状态栏的背景颜色
@@ -71,9 +76,31 @@ public class ModernWindow : Window {
     }
 
     public ContextMenu ToolbarMenu {
-        get => GetValue(ToolbarMenuProperty) as ContextMenu;
+        get => (ContextMenu)GetValue(ToolbarMenuProperty);
         set => SetValue(ToolbarMenuProperty, value);
     }
+
+    #endregion
+
+    #region 控件
+
+    /// <summary>
+    /// 通知grid
+    /// </summary>
+    /// <returns></returns>
+    internal Grid NotificationGrid => _notificationGrid ??= (Grid)GetTemplateChild(PartNotificationGrid)!;
+
+    /// <summary>
+    /// 状态栏菜单按钮
+    /// </summary>
+    internal Button ToolbarMenuButton => _toolbarMenuButton ??= (Button)GetTemplateChild(PartToolbarMenuButton)!;
+
+    /// <summary>
+    /// resize的path
+    /// </summary>
+    private Path ResizeIconPath => _resizeIconPath ??= (Path)GetTemplateChild(PartMaximizeIcon)!;
+
+    #endregion
 
     static ModernWindow () {
         // 设置默认样式资源
@@ -109,11 +136,9 @@ public class ModernWindow : Window {
 
     private void ToolbarMenuClick()
     {
-        if (GetTemplateChild(PartToolbarMenuButton) is Button {
-            ContextMenu: not null
-        } button) {
-            button.ContextMenu.PlacementTarget = button;
-            button.ContextMenu.IsOpen = true;
+        if (ToolbarMenuButton is { ContextMenu: not null }) {
+            ToolbarMenuButton.ContextMenu.PlacementTarget = ToolbarMenuButton;
+            ToolbarMenuButton.ContextMenu.IsOpen = true;
         }
     }
 
@@ -128,12 +153,10 @@ public class ModernWindow : Window {
     protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo) {
         base.OnRenderSizeChanged(sizeInfo);
         Margin = new Thickness(WindowState == WindowState.Maximized ? 5 : 0);
-        if (GetTemplateChild(PartMaximizeIcon) is Path maximizeIcon) {
-            maximizeIcon.Data = Geometry.Parse(WindowState == WindowState.Maximized
-                ? MaximizeIconPath
-                : NormalIconPath
-            );
-        }
+        ResizeIconPath.Data = Geometry.Parse(WindowState == WindowState.Maximized
+            ? MaximizeIconPath
+            : NormalIconPath
+        );
     }
 
     /// <summary>

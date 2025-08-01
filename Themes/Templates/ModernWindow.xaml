@@ -273,7 +273,7 @@
                 <ControlTemplate TargetType="{x:Type components:ModernWindow }">
                     <!-- 主体布局 -->
                     <Border Padding="{TemplateBinding Margin}">
-                        <Grid>
+                        <Grid x:Name="PART_NotificationGrid">
                             <!-- 设置背景为蓝白渐变 -->
                             <Grid.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
