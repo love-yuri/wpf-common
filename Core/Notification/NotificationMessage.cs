@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -6,8 +5,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using LoveYuri.Core.Mvvm;
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace LoveYuri.Core.Notification;
 
@@ -32,12 +29,12 @@ public class NotificationMessage : UserControl {
     /// <summary>
     /// 关闭定时器
     /// </summary>
-    public DispatcherTimer CloseTimer { get; set; }
+    public DispatcherTimer? CloseTimer { get; set; }
 
     /// <summary>
     /// 关闭事件
     /// </summary>
-    public event EventHandler Closed;
+    public event EventHandler? Closed;
 
     protected NotificationMessage(string message) {
         Message = message;
@@ -81,7 +78,7 @@ public class NotificationMessage : UserControl {
             From = 0.8,
             To = 1,
             Duration = TimeSpan.FromMilliseconds(350),
-            EasingFunction = new ElasticEase { 
+            EasingFunction = new ElasticEase {
                 EasingMode = EasingMode.EaseOut,
                 Oscillations = 1,
                 Springiness = 3
@@ -95,7 +92,7 @@ public class NotificationMessage : UserControl {
             From = 0.8,
             To = 1,
             Duration = TimeSpan.FromMilliseconds(350),
-            EasingFunction = new ElasticEase { 
+            EasingFunction = new ElasticEase {
                 EasingMode = EasingMode.EaseOut,
                 Oscillations = 1,
                 Springiness = 3
@@ -110,7 +107,7 @@ public class NotificationMessage : UserControl {
             From = -20,
             To = 0,
             Duration = TimeSpan.FromMilliseconds(300),
-            EasingFunction = new BackEase { 
+            EasingFunction = new BackEase {
                 EasingMode = EasingMode.EaseOut,
                 Amplitude = 0.5
             }
@@ -183,7 +180,7 @@ public class NotificationMessage : UserControl {
         storyboard.Children.Add(heightAnimation);
 
         // 当动画完成时触发关闭事件
-        storyboard.Completed += (s, e) => Closed?.Invoke(this, EventArgs.Empty);
+        storyboard.Completed += (_, _) => Closed?.Invoke(this, EventArgs.Empty);
 
         // 开始动画
         storyboard.Begin();
@@ -192,66 +189,54 @@ public class NotificationMessage : UserControl {
     /// <summary>
     /// 根据type 返回通知
     /// </summary>
-    public static NotificationMessage GetNotificationMessage(string message, NotificationType type) {
-        switch (type) {
-            case NotificationType.Success:
-                return new SuccessNotificationMessage(message);
-            case NotificationType.Info:
-                return new InfoNotificationMessage(message);
-            case NotificationType.Warning:
-                return new WarningNotificationMessage(message);
-            case NotificationType.Error:
-                return new ErrorNotificationMessage(message);
-            default:
-                throw new ArgumentOutOfRangeException(nameof(type), type, null);
-        }
+    public static NotificationMessage GetNotificationMessage(string message, NotificationType type)
+    {
+        return type switch {
+            NotificationType.Success => new SuccessNotificationMessage(message),
+            NotificationType.Info => new InfoNotificationMessage(message),
+            NotificationType.Warning => new WarningNotificationMessage(message),
+            NotificationType.Error => new ErrorNotificationMessage(message),
+            _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+        };
     }
 }
 
 /// <summary>
 /// 成功消息
 /// </summary>
-public class SuccessNotificationMessage : NotificationMessage {
+public class SuccessNotificationMessage(string message) : NotificationMessage(message) {
     static SuccessNotificationMessage() {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(SuccessNotificationMessage),
             new FrameworkPropertyMetadata(typeof(SuccessNotificationMessage)));
     }
-
-    public SuccessNotificationMessage(string message) : base(message) { }
 }
 
 /// <summary>
 /// 错误消息
 /// </summary>
-public class ErrorNotificationMessage : NotificationMessage {
+public class ErrorNotificationMessage(string message) : NotificationMessage(message) {
     static ErrorNotificationMessage() {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(ErrorNotificationMessage),
             new FrameworkPropertyMetadata(typeof(ErrorNotificationMessage)));
     }
-
-    public ErrorNotificationMessage(string message) : base(message) { }
 }
 
 /// <summary>
 /// 信息消息
 /// </summary>
-public class InfoNotificationMessage : NotificationMessage {
+public class InfoNotificationMessage(string message) : NotificationMessage(message) {
     static InfoNotificationMessage() {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(InfoNotificationMessage),
             new FrameworkPropertyMetadata(typeof(InfoNotificationMessage)));
     }
-
-    public InfoNotificationMessage(string message) : base(message) { }
 }
 
 /// <summary>
 /// 警告消息
 /// </summary>
-public class WarningNotificationMessage : NotificationMessage {
+public class WarningNotificationMessage(string message) : NotificationMessage(message) {
     static WarningNotificationMessage() {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(WarningNotificationMessage),
             new FrameworkPropertyMetadata(typeof(WarningNotificationMessage)));
     }
-
-    public WarningNotificationMessage(string message) : base(message) { }
 }

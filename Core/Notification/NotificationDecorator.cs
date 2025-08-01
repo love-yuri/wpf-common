@@ -4,8 +4,7 @@ using System.Windows;
 namespace LoveYuri.Core.Notification;
 
 public static class NotificationDecorator {
-    private static readonly ConditionalWeakTable<Window, NotificationService> Services =
-        new ConditionalWeakTable<Window, NotificationService>();
+    private static readonly ConditionalWeakTable<Window, NotificationService> Services = new();
 
     /// <summary>
     /// 获取通知service，同一实例只会实现一次
