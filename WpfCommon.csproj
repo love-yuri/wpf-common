@@ -2,7 +2,8 @@
     <PropertyGroup>
         <TargetFramework>net8.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
-        <ImplicitUsings>disable</ImplicitUsings>
+        <ImplicitUsings>true</ImplicitUsings>
+        <Nullable>enable</Nullable>
         <RootNamespace>LoveYuri</RootNamespace>
         <AssemblyName>love-yuri</AssemblyName>
         <Version>2.0.0</Version>
@@ -27,6 +28,7 @@
     <!-- 依赖 -->
     <ItemGroup>
         <!-- di依赖注入 -->
+        <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" PrivateAssets="none" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" PrivateAssets="none" />
     </ItemGroup>

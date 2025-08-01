@@ -1,6 +1,5 @@
-using System;
-using System.Timers;
 using System.Windows.Threading;
+using Timer = System.Timers.Timer;
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedMethodReturnValue.Global
 
@@ -17,10 +16,10 @@ public static class TimerUtils {
     /// <param name="func">回调函数</param>
     /// <param name="dispatcher">指定的UI调度器，为null则在后台线程执行</param>
     /// <returns>可用于取消定时器的对象</returns>
-    public static Timer Timeout(this int milliseconds, Action func, Dispatcher dispatcher = null) {
+    public static Timer Timeout(this int milliseconds, Action func, Dispatcher? dispatcher = null) {
         var timer = new Timer(milliseconds);
         timer.AutoReset = false;
-        timer.Elapsed += (_, __) => {
+        timer.Elapsed += (_, _) => {
             try {
                 if (dispatcher != null) {
                     dispatcher.Invoke(func);
@@ -46,12 +45,12 @@ public static class TimerUtils {
     /// <param name="func">待执行的函数</param>
     /// <param name="n">执行次数</param>
     /// <param name="dispatcher">指定的UI调度器，为null则在后台线程执行</param>
-    public static Timer Interval(this int milliseconds, Action func, int? n = null, Dispatcher dispatcher = null) {
+    public static Timer Interval(this int milliseconds, Action func, int? n = null, Dispatcher? dispatcher = null) {
         var timer = new Timer(milliseconds);
 
         timer.AutoReset = true;
         var count = 0;
-        timer.Elapsed += (_, __) => {
+        timer.Elapsed += (_, _) => {
             try {
                 if (dispatcher != null) {
                     dispatcher.Invoke(func);
