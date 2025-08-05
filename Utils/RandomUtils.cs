@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+
 // ReSharper disable MemberCanBePrivate.Global
 // ReSharper disable UnusedType.Global
 
@@ -9,17 +8,17 @@ namespace LoveYuri.Utils;
 /// 随机数工具类，每次new都会生成唯一random类用于后续素有随机数种子
 /// </summary>
 public class RandomUtils {
-    private Random random;
+    private Random? random;
 
     /// <summary>
     /// 本轮使用的随机数种子
     /// </summary>
-    public Random Random => random ?? (random = new Random());
+    public Random Random => random ??= new Random();
 
     /// <summary>
     /// 数据字典
     /// </summary>
-    private readonly Dictionary<string, HashSet<int>> valueMap = new Dictionary<string, HashSet<int>>();
+    private readonly Dictionary<string, HashSet<int>> valueMap = new();
 
     /// <summary>
     /// 在min-max的时间段内随机执行callback
@@ -63,7 +62,7 @@ public class RandomUtils {
         int data = Random.Next(min, max);
 
         if (!valueMap.TryGetValue(name, out var history)) {
-            valueMap.Add(name, new HashSet<int> { data });
+            valueMap.Add(name, [data]);
             return data;
         }
 

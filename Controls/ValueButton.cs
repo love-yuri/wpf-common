@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -98,7 +97,7 @@ public class ValueButton : FrameworkElement {
     }
 
     // 添加命中测试，确保只在圆形区域内响应鼠标事件
-    private HitTestResult HitTest(Point point) {
+    private PointHitTestResult? HitTest(Point point) {
         double radius = Math.Min(ActualWidth, ActualHeight) / 2;
         var center = new Point(ActualWidth / 2, ActualHeight / 2);
 
@@ -112,7 +111,7 @@ public class ValueButton : FrameworkElement {
     // 在鼠标点击事件中检测命中对象
     protected override void OnMouseDown(MouseButtonEventArgs e) {
         if (HitTest(e.GetPosition(this)) != null) {
-            IsChecked = !IsChecked; 
+            IsChecked = !IsChecked;
         }
     }
 }

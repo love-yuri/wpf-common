@@ -31,7 +31,7 @@ public class UdpService : IDisposable {
     /// <summary>
     /// udp客户端
     /// </summary>
-    private UdpClient udpClient;
+    private UdpClient? udpClient;
 
     /// <summary>
     /// 标记是否已释放资源
@@ -46,7 +46,7 @@ public class UdpService : IDisposable {
     /// <summary>
     /// 监听取消token
     /// </summary>
-    private CancellationTokenSource receiveCts;
+    private CancellationTokenSource? receiveCts;
 
     /// <summary>
     /// 是否启用自动重连
@@ -56,12 +56,12 @@ public class UdpService : IDisposable {
     /// <summary>
     /// 收到消息事件回调
     /// </summary>
-    public event UdpMessageEventHandler HasReceiveMsg;
+    public event UdpMessageEventHandler? HasReceiveMsg;
 
     /// <summary>
     /// 发送消息回调
     /// </summary>
-    public event UdpMessageEventHandler HasSendMsg;
+    public event UdpMessageEventHandler? HasSendMsg;
 
     /// <summary>
     /// service的唯一key
@@ -94,7 +94,7 @@ public class UdpService : IDisposable {
         LocalPort = localPort;
         remoteEndPoint = new IPEndPoint(IPAddress.Parse(remoteIp), remotePort);
         InitializeUdpClient();
-        Log.Info($"连接至 {remoteIp}:{remotePort} 的UDP服务已在 {udpClient.Client.LocalEndPoint} 启动");
+        Log.Info($"连接至 {remoteIp}:{remotePort} 的UDP服务已在 {udpClient!.Client.LocalEndPoint} 启动");
     }
 
     /// <summary>
@@ -161,7 +161,7 @@ public class UdpService : IDisposable {
                 // 检查是否已释放
                 while (!receiveCts.Token.IsCancellationRequested && !disposed) {
                     if (!IsConnected) break;
-                    var result = await udpClient.ReceiveAsync(receiveCts.Token);
+                    var result = await udpClient!.ReceiveAsync(receiveCts.Token);
                     if (!IsConnected) break;
 
                     // 处理接收到的消息-捕获异常，防止监听中断

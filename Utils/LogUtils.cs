@@ -1,4 +1,3 @@
-using System;
 // ReSharper disable MemberCanBePrivate.Global
 
 namespace LoveYuri.Utils;
@@ -21,7 +20,7 @@ public static class Log {
     /// <returns></returns>
     public static string FormatMsg(object level, string msg) {
         var time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-        string levelStr = level.ToString().PadLeft(5);
+        string levelStr = level.ToString()!.PadLeft(5);
         return $"[{time} {levelStr}] {msg}";
     }
 
@@ -41,7 +40,7 @@ public static class Log {
     public static void Debug(string msg) {
     #if DEBUG
             string formatMsg = FormatMsg(LogLevel.Debug, msg);
-            Console.WriteLine(formatMsg); 
+            Console.WriteLine(formatMsg);
     #endif
     }
 
