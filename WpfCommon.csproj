@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>LoveYuri</RootNamespace>
         <AssemblyName>love-yuri</AssemblyName>
-        <Version>2.0.1</Version>
+        <Version>2.0.2</Version>
         <Authors>love-yuri</Authors>
         <Description>基于.net8.0构建的wpf常用工具库</Description>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -17,9 +17,9 @@
         <PackageProjectUrl>https://github.com/love-yuri/wpf-common</PackageProjectUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <Title>wpf工具集</Title>
+        <Title>我的恋情，宛如孤岛之花。不为人知的绽放，不为人知的凋零</Title>
     </PropertyGroup>
-    
+
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>
@@ -40,12 +40,12 @@
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" PrivateAssets="none" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.1" PrivateAssets="none" />
-        
+
         <!-- sqlite -->
         <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.7" />
         <PackageReference Include="Dapper" Version="2.1.66" />
     </ItemGroup>
-    
+
     <!-- 排除 Examples 示例目录 -->
     <ItemGroup>
       <Compile Remove="Examples\**" />
