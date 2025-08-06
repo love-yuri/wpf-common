@@ -2,6 +2,7 @@
 
 using System.Reflection;
 using Dapper;
+using LoveYuri.Utils;
 using Microsoft.Data.Sqlite;
 
 namespace LoveYuri.Core.Sql;
@@ -19,39 +20,50 @@ public enum LogicalOperatorType {
 }
 
 /// <summary>
+/// 构建sql的类型
+/// </summary>
+public enum BuildSqlType {
+    Select,
+    Delete,
+    Update,
+    Insert,
+    Count
+}
+
+/// <summary>
 /// 泛型查询构造器，提供强类型的链式查询条件构建
 /// </summary>
 /// <typeparam name="T">实体类型，必须实现 IMessage 接口</typeparam>
 public class QueryWrapper<T> where T : new()
 {
-    private readonly StringBuilder conditionBuilder = new();
+    protected readonly StringBuilder ConditionBuilder = new();
     private readonly StringBuilder orderByBuilder = new();
     protected QueryWrapper() {}
 
     /// <summary>
     /// 参数值字典，用于参数化查询
     /// </summary>
-    protected Dictionary<string, object> Values { get; init; } = null!;
+    internal Dictionary<string, object> Values { get; init; } = null!;
 
     /// <summary>
     /// limit sql
     /// </summary>
-    public string LimitSql { get; private set; } = string.Empty;
+    protected string LimitSql { get; set; } = string.Empty;
 
     /// <summary>
     /// 构建完整sql语句
     /// </summary>
     /// <returns></returns>
-    public string BuildSql()
+    public virtual string BuildSql(BuildSqlType type = BuildSqlType.Select)
     {
         var stringBuilder = new StringBuilder();
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             stringBuilder.Append("where (");
-            stringBuilder.Append(conditionBuilder);
+            stringBuilder.Append(ConditionBuilder);
             stringBuilder.Append(')');
         }
 
-        if (orderByBuilder.Length > 0) {
+        if (orderByBuilder.Length > 0 && type is BuildSqlType.Select) {
             stringBuilder.Append(" ORDER BY ");
             stringBuilder.Append(orderByBuilder);
         }
@@ -64,12 +76,9 @@ public class QueryWrapper<T> where T : new()
     /// 创建 QueryWrapper 实例
     /// </summary>
     /// <returns>新的 QueryWrapper 实例</returns>
-    public static QueryWrapper<T> Builder()
-    {
-        return new QueryWrapper<T> {
-            Values = new Dictionary<string, object>()
-        };
-    }
+    public static QueryWrapper<T> Query => new() {
+        Values = new Dictionary<string, object>()
+    };
 
     /// <summary>
     /// 从 Lambda 表达式中获取属性名
@@ -100,13 +109,13 @@ public class QueryWrapper<T> where T : new()
         string paramKey = GenerateUniqueParamKey(fieldName);
 
         // 添加逻辑操作符
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
         // 添加条件
-        conditionBuilder.Append($"({fieldName} {op} {paramKey})");
+        ConditionBuilder.Append($"({fieldName} {op} {paramKey})");
 
         Values[paramKey] = value!;
     }
@@ -292,12 +301,12 @@ public class QueryWrapper<T> where T : new()
         }
 
         string paramKey = GenerateUniqueParamKey(fieldName);
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
-        conditionBuilder.Append($"({fieldName} IN {paramKey})");
+        ConditionBuilder.Append($"({fieldName} IN {paramKey})");
         Values[paramKey] = valueList;
         return this;
     }
@@ -323,12 +332,12 @@ public class QueryWrapper<T> where T : new()
         }
 
         string paramKey = GenerateUniqueParamKey(fieldName);
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
-        conditionBuilder.Append($"({fieldName} NOT IN {paramKey})");
+        ConditionBuilder.Append($"({fieldName} NOT IN {paramKey})");
         Values[paramKey] = valueList;
         return this;
     }
@@ -352,12 +361,12 @@ public class QueryWrapper<T> where T : new()
         string startKey = GenerateUniqueParamKey($"{fieldName}_start");
         string endKey = GenerateUniqueParamKey($"{fieldName}_end");
 
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
-        conditionBuilder.Append($"({fieldName} BETWEEN {startKey} AND {endKey})");
+        ConditionBuilder.Append($"({fieldName} BETWEEN {startKey} AND {endKey})");
         Values[startKey] = start!;
         Values[endKey] = end!;
         return this;
@@ -382,12 +391,12 @@ public class QueryWrapper<T> where T : new()
         string startKey = GenerateUniqueParamKey($"{fieldName}_start");
         string endKey = GenerateUniqueParamKey($"{fieldName}_end");
 
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
-        conditionBuilder.Append($"({fieldName} NOT BETWEEN {startKey} AND {endKey})");
+        ConditionBuilder.Append($"({fieldName} NOT BETWEEN {startKey} AND {endKey})");
         Values[startKey] = start!;
         Values[endKey] = end!;
         return this;
@@ -412,12 +421,12 @@ public class QueryWrapper<T> where T : new()
     {
         string fieldName = GetFieldName(expression);
 
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
-        conditionBuilder.Append($"({fieldName} IS NULL)");
+        ConditionBuilder.Append($"({fieldName} IS NULL)");
         return this;
     }
 
@@ -436,12 +445,12 @@ public class QueryWrapper<T> where T : new()
     {
         string fieldName = GetFieldName(expression);
 
-        if (conditionBuilder.Length > 0) {
+        if (ConditionBuilder.Length > 0) {
             string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-            conditionBuilder.Append($" {logicalOp} ");
+            ConditionBuilder.Append($" {logicalOp} ");
         }
 
-        conditionBuilder.Append($"({fieldName} IS NOT NULL)");
+        ConditionBuilder.Append($"({fieldName} IS NOT NULL)");
         return this;
     }
 
@@ -467,13 +476,13 @@ public class QueryWrapper<T> where T : new()
             Values = Values
         };
         action.Invoke(subWrapper);
-        if (subWrapper.conditionBuilder.Length > 0) {
-            if (conditionBuilder.Length > 0) {
+        if (subWrapper.ConditionBuilder.Length > 0) {
+            if (ConditionBuilder.Length > 0) {
                 string logicalOp = logical == LogicalOperatorType.And ? "AND" : "OR";
-                conditionBuilder.Append($" {logicalOp} ");
+                ConditionBuilder.Append($" {logicalOp} ");
             }
 
-            conditionBuilder.Append($"({subWrapper.conditionBuilder})");
+            ConditionBuilder.Append($"({subWrapper.ConditionBuilder})");
         }
 
         return this;
@@ -582,35 +591,17 @@ public class QueryWrapper<T> where T : new()
 
     #endregion
 
-
-    /// <summary>
-    /// 查询
-    /// </summary>
-    /// <returns></returns>
-    public List<T> Select()
-    {
-        var type = typeof(T);
-        var tableInfo = type.GetCustomAttribute<TableInfoAttribute>() ?? throw new Exception("未找到TableInfo!!");
-        var sql = $"select * from {tableInfo.TableName} {BuildSql()}";
-        using var connect = new SqliteConnection($"DataSource={tableInfo.DataSource}");
-        return connect.Query<T>(sql, Values).ToList();
-    }
 }
 
 /// <summary>
 /// 更新条件查询
 /// </summary>
-public class UpdateQueryWrapper <T>: QueryWrapper<T> where T : new() {
+public class UpdateQueryWrapper<T>: QueryWrapper<T> where T : new() {
 
     /// <summary>
     /// 构建set sql
     /// </summary>
     private readonly StringBuilder setClauseBuilder = new();
-
-    /// <summary>
-    /// 更新sql
-    /// </summary>
-    private string SetSql => setClauseBuilder.ToString();
 
     /// <summary>
     /// 更新 某个字段
@@ -637,17 +628,24 @@ public class UpdateQueryWrapper <T>: QueryWrapper<T> where T : new() {
         return this;
     }
 
-    // public override QuerySqlRequest CreateQueryRequest()
-    // {
-    //     var request = base.CreateQueryRequest();
-    //     request.SetClause = SetSql;
-    //     return request;
-    // }
+    public new static UpdateQueryWrapper<T> Query => new() {
+        Values = new Dictionary<string, object>()
+    };
 
-    public static UpdateQueryWrapper<T> BuilderUpdate()
+    public override string BuildSql(BuildSqlType type = BuildSqlType.Select)
     {
-        return new UpdateQueryWrapper<T> {
-            Values = new Dictionary<string, object>()
-        };
+        var stringBuilder = new StringBuilder();
+        if (setClauseBuilder.Length == 0) {
+            throw new Exception("update语句必须要set!");
+        }
+        stringBuilder.Append(setClauseBuilder);
+        stringBuilder.Append(' ');
+
+        if (ConditionBuilder.Length > 0) {
+            stringBuilder.Append("where (");
+            stringBuilder.Append(ConditionBuilder);
+            stringBuilder.Append(')');
+        }
+        return stringBuilder.ToString();
     }
 }
