@@ -7,6 +7,8 @@
                 <dependency id="Microsoft.Extensions.Hosting" version="9.0.1" />
             </group>
         </dependencies>
+        <projectUrl>https://github.com/love-yuri/wpf-common</projectUrl>
+        <repository type="git" url="https://github.com/love-yuri/wpf-common.git" />
     </metadata>
-    
+
 </package>
