@@ -37,11 +37,10 @@ public static class Log {
     /// Debug模式，只在debug下打印，级别等同于info
     /// </summary>
     /// <param name="msg"></param>
+    [System.Diagnostics.Conditional("DEBUG")]
     public static void Debug(string msg) {
-    #if DEBUG
-            string formatMsg = FormatMsg(LogLevel.Debug, msg);
-            Console.WriteLine(formatMsg);
-    #endif
+        string formatMsg = FormatMsg(LogLevel.Debug, msg);
+        Console.WriteLine(formatMsg);
     }
 
     /// <summary>
