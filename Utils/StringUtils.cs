@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Media;
 // ReSharper disable UnusedType.Global
 // ReSharper disable UnusedMember.Global
@@ -47,7 +46,7 @@ public static class StringUtils {
     /// 转换字符串为color,如果转换失败则抛出异常
     /// </summary>
     public static Color ToColor(this string str) {
-        object res = ColorConverter.ConvertFromString(str);
+        object? res = ColorConverter.ConvertFromString(str);
         if (res == null) throw new Exception("转换失败");
         return (Color)res;
     }
@@ -57,7 +56,7 @@ public static class StringUtils {
     /// </summary>
     public static Color TryToColor(this string str, Color defaultValue = default) {
         try {
-            object res = ColorConverter.ConvertFromString(str);
+            object? res = ColorConverter.ConvertFromString(str);
             if (res == null) {
                 return defaultValue;
             }
