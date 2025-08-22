@@ -9,7 +9,7 @@ using LoveYuri.Core.Service;
 
 // ReSharper disable MemberCanBePrivate.Global
 
-namespace LoveYuri.Controls;
+namespace LoveYuri.Modern;
 
 /// <summary>
 /// 泛型版本
@@ -41,9 +41,9 @@ public class ModernWindow : Window {
     public const string PartNotificationGrid = "PART_NotificationGrid";
     private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";
     private const string NormalIconPath = "M0,0 L10,0 L10,10 L0,10 Z";
-    private Grid? _notificationGrid;
-    private Button? _toolbarMenuButton;
-    private Path? _resizeIconPath;
+    private Grid? notificationGrid;
+    private Button? toolbarMenuButton;
+    private Path? resizeIconPath;
 
     #region 依赖属性
 
@@ -88,17 +88,17 @@ public class ModernWindow : Window {
     /// 通知grid
     /// </summary>
     /// <returns></returns>
-    internal Grid NotificationGrid => _notificationGrid ??= (Grid)GetTemplateChild(PartNotificationGrid)!;
+    internal Grid NotificationGrid => notificationGrid ??= (Grid)GetTemplateChild(PartNotificationGrid)!;
 
     /// <summary>
     /// 状态栏菜单按钮
     /// </summary>
-    internal Button ToolbarMenuButton => _toolbarMenuButton ??= (Button)GetTemplateChild(PartToolbarMenuButton)!;
+    internal Button ToolbarMenuButton => toolbarMenuButton ??= (Button)GetTemplateChild(PartToolbarMenuButton)!;
 
     /// <summary>
     /// resize的path
     /// </summary>
-    private Path ResizeIconPath => _resizeIconPath ??= (Path)GetTemplateChild(PartMaximizeIcon)!;
+    private Path ResizeIconPath => resizeIconPath ??= (Path)GetTemplateChild(PartMaximizeIcon)!;
 
     #endregion
 

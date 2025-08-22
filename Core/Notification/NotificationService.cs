@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Shell;
 using System.Windows.Threading;
 using LoveYuri.Controls;
+using LoveYuri.Modern;
 
 namespace LoveYuri.Core.Notification;
 
