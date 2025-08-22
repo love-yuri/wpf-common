@@ -19,7 +19,7 @@ public static class Log {
     /// <param name="msg">消息</param>
     /// <returns></returns>
     public static string FormatMsg(object level, string msg) {
-        var time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        var time = DateTime.Now.ToString("HH:mm:ss.fff");
         string levelStr = level.ToString()!.PadLeft(5);
         return $"[{time} {levelStr}] {msg}";
     }
