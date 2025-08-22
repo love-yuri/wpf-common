@@ -1,10 +1,5 @@
 // ReSharper disable InvalidXmlDocComment
 
-using System.Reflection;
-using Dapper;
-using LoveYuri.Utils;
-using Microsoft.Data.Sqlite;
-
 namespace LoveYuri.Core.Sql;
 
 using System;
@@ -48,7 +43,7 @@ public class QueryWrapper<T> where T : new()
     /// <summary>
     /// limit sql
     /// </summary>
-    protected string LimitSql { get; set; } = string.Empty;
+    private string LimitSql { get; set; } = string.Empty;
 
     /// <summary>
     /// 构建完整sql语句
