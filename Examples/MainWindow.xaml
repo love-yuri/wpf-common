@@ -1,14 +1,15 @@
-﻿<controls:ModernWindow
+﻿<modern:ModernWindow
      x:Class="LoveYuri.Examples.MainWindow"
        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        xmlns:controls="clr-namespace:LoveYuri.Controls;assembly=love-yuri"
+       xmlns:modern="clr-namespace:LoveYuri.Modern;assembly=love-yuri"
        mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
        Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <controls:ToolButton Content="测试1" Click="Test1" />
     </StackPanel>
-</controls:ModernWindow>
+</modern:ModernWindow>
