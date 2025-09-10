@@ -70,7 +70,27 @@ public static class DiService {
         // 启动时启动服务
         application.Startup += (_, _) => _host.Start();
 
-        // 关闭时停止服务
-        application.Exit += (_, _) => _host.Dispose();
+        WeakEventManager<Application, StartupEventArgs>.AddHandler(
+            application, nameof(application.Startup),
+            OnApplicationStartup
+        );
+
+        WeakEventManager<Application, StartupEventArgs>.AddHandler(
+            application, nameof(application.Exit),
+            OnApplicationExit
+        );
+    }
+
+    /// <summary>
+    /// 启动服务
+    /// </summary>
+    private static void OnApplicationStartup(object? sender, StartupEventArgs e)
+    {
+        _host?.Start();
+    }
+
+    private static void OnApplicationExit(object? sender, StartupEventArgs e)
+    {
+        _host?.Dispose();
     }
 }
