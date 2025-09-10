@@ -4,6 +4,11 @@
 >
 > 作者: love-yuri
 
+## 更新日志
+
+### 2.0.3
+1. 新增modern组件套装，将重新实现的控件，统一命名为modern-xx
+
 ## 快速开始
 
 1. 在项目中引入依赖: `<PackageReference Include="love-yuri.WpfCommon" />`
@@ -27,7 +32,7 @@
 
 > 依赖注入服务，这是di依赖注入的核心服务类。
 
-1. `static void RegisterDiService(...)` 核心方法，下面所有的函数使用的前提就是调用注册服务。 
+1. `static void RegisterDiService(...)` 核心方法，下面所有的函数使用的前提就是调用注册服务。
    1. this Application application: 需要进行注册的application
    2. Action<IServiceCollection> register: 进行具体注册的函数回调
 2. ` static T GetService<T>() where T : class` 调用GetService方法。
@@ -96,7 +101,7 @@
 
 > 就是一个带有动效的工具按钮，默认是蓝色。
 
-#### **ModernWindow** 
+#### **ModernWindow**
 
 > 更漂亮，更现代化的无边框窗口。
 >
