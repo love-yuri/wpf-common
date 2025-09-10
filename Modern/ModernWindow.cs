@@ -37,6 +37,9 @@ public class ModernWindow<TVm> : ModernWindow where TVm: class {
 
 public class ModernWindow : Window {
     public const string PartMaximizeIcon = "PART_MaximizeIcon";
+    public const string PartMinimizeBtn = "PART_MinimizeBtn";
+    public const string PartMaximizeBtn = "PART_MaximizeBtn";
+    public const string PartCloseBtn = "PART_CloseBtn";
     public const string PartToolbarMenuButton = "PART_ToolbarMenuButton";
     public const string PartNotificationGrid = "PART_NotificationGrid";
     private const string MaximizeIconPath = "M0,2 L8,2 L8,10 L0,10 Z M2,0 L10,0 L10,8 L8,8 L8,2 L2,2 Z";
@@ -172,5 +175,15 @@ public class ModernWindow : Window {
     /// </summary>
     private void PinDown() {
         Topmost = !Topmost;
+    }
+
+    /// <summary>
+    /// 获取控件
+    /// </summary>
+    /// <param name="name">控件名称</param>
+    private T GetRequiredControl<T>(string name)
+    {
+        var c = GetTemplateChild(name);
+        return c is T t ? t : throw new Exception($"控件 {name} 不存在");
     }
 }

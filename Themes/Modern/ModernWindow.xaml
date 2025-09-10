@@ -344,6 +344,7 @@
                                             </Image>
                                         </Button>
                                         <Button Width="46" Height="40"
+                                            x:Name="PART_MinimizeBtn"
                                             Command="{Binding MinimizeCommand, RelativeSource={RelativeSource AncestorType=modern:ModernWindow }}"
                                             Style="{StaticResource WindowControlButtonStyle}"
                                             WindowChrome.IsHitTestVisibleInChrome="True">
@@ -351,7 +352,8 @@
                                                 Stretch="Uniform" Width="10" />
                                         </Button>
                                         <Button Width="46" Height="40"
-                                            Command="{Binding MaximizeCommand, RelativeSource={RelativeSource AncestorType=modern:ModernWindow }}"
+                                            x:Name="PART_MaximizeBtn"
+                                            Command="{Binding MaximizeCommand, RelativeSource={RelativeSource AncestorType=modern:ModernWindow}}"
                                             Style="{StaticResource WindowControlButtonStyle}"
                                             WindowChrome.IsHitTestVisibleInChrome="True">
                                             <Path Data="M0,0 L10,0 L10,10 L0,10 Z"
@@ -359,7 +361,8 @@
                                                 Stroke="White" StrokeThickness="1" Stretch="Uniform" Width="10" />
                                         </Button>
                                         <Button Width="46" Height="40"
-                                            Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=modern:ModernWindow }}"
+                                            x:Name="PART_CloseBtn"
+                                            Command="{Binding CloseCommand, RelativeSource={RelativeSource AncestorType=modern:ModernWindow}}"
                                             Style="{StaticResource CloseButtonStyle}"
                                             WindowChrome.IsHitTestVisibleInChrome="True">
                                             <Path Data="M0,0 L10,10 M0,10 L10,0" Stroke="White" StrokeThickness="1"
