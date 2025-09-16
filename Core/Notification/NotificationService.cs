@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shell;
 using System.Windows.Threading;
-using LoveYuri.Controls;
 using LoveYuri.Modern;
 
 namespace LoveYuri.Core.Notification;
@@ -13,17 +12,17 @@ namespace LoveYuri.Core.Notification;
 public class NotificationService {
     private const int DefaultDuration = 3000;
     private const int ReCloseStartDuration = 800;
-    private Panel? _container;
-    private readonly Window _window;
-    private readonly List<NotificationMessage> _activeNotifications = [];
-    private bool _isMouseOverAnyNotification;
+    private Panel? container;
+    private readonly Window window;
+    private readonly List<NotificationMessage> activeNotifications = [];
+    private bool isMouseOverAnyNotification;
 
     /// <summary>
     /// 创建通知服务实例
     /// </summary>
     /// <param name="window">关联的窗口</param>
     public NotificationService(Window window) {
-        _window = window;
+        this.window = window;
         window.Dispatcher.InvokeAsync(Init);
     }
 
@@ -31,39 +30,39 @@ public class NotificationService {
     {
         // 基础顶部偏移量
         var marginTop = 2.0;
-        if (_window is ModernWindow) {
+        if (window is ModernWindow) {
             marginTop = 2;
         } else {
-            var windowChrome = WindowChrome.GetWindowChrome(_window);
+            var windowChrome = WindowChrome.GetWindowChrome(window);
             if (windowChrome != null) {
                 marginTop += windowChrome.CaptionHeight;
             }
         }
 
         // 创建通知容器 - 居中显示
-        _container = new StackPanel {
+        container = new StackPanel {
             VerticalAlignment = VerticalAlignment.Top,
             HorizontalAlignment = HorizontalAlignment.Center,
             Margin = new Thickness(0, marginTop, 0, 0)
         };
 
         // 添加到窗口
-        Panel.SetZIndex(_container, 9999);
+        Panel.SetZIndex(container, 9999);
 
-        object originalContent = _window.Content;
+        object originalContent = window.Content;
         Grid grid;
-        if (_window is ModernWindow w) {
+        if (window is ModernWindow w) {
             grid = w.NotificationGrid;
-            Grid.SetRow(_container, 2);
+            Grid.SetRow(container, 2);
         } else {
             grid = new Grid();
-            _window.Content = grid;
+            window.Content = grid;
             if (originalContent is UIElement element) {
                 grid.Children.Add(element);
             }
         }
 
-        grid.Children.Add(_container);
+        grid.Children.Add(container);
     }
 
     /// <summary>
@@ -71,7 +70,7 @@ public class NotificationService {
     /// </summary>
     private void PauseAllTimers()
     {
-        foreach (var notification in _activeNotifications) {
+        foreach (var notification in activeNotifications) {
             notification.CloseTimer?.Stop();
         }
     }
@@ -82,7 +81,7 @@ public class NotificationService {
     private void ResumeAllTimers()
     {
         int basicTimeout = ReCloseStartDuration;
-        foreach (var notification in _activeNotifications) {
+        foreach (var notification in activeNotifications) {
             if (notification.CloseTimer != null) {
                 notification.CloseTimer.Interval = TimeSpan.FromMilliseconds(basicTimeout += 100);
             }
@@ -104,29 +103,29 @@ public class NotificationService {
         int duration = DefaultDuration
     ) {
         // 异步通知
-        _window.Dispatcher.InvokeAsync(() => {
+        window.Dispatcher.InvokeAsync(() => {
             var notification = NotificationMessage.GetNotificationMessage(message, type);
 
             // 添加鼠标进入事件处理
             notification.MouseEnter += (_, _) => {
-                _isMouseOverAnyNotification = true;
+                isMouseOverAnyNotification = true;
                 PauseAllTimers();
             };
 
             // 添加鼠标离开事件处理
             notification.MouseLeave += (_, _) => {
-                _isMouseOverAnyNotification = false;
+                isMouseOverAnyNotification = false;
                 ResumeAllTimers();
             };
 
             // 添加到容器和活动通知列表
-            _container?.Children.Add(notification);
-            _activeNotifications.Add(notification);
+            container?.Children.Add(notification);
+            activeNotifications.Add(notification);
 
             // 关联关闭
             notification.Closed += (_, _) => {
-                _container?.Children.Remove(notification);
-                _activeNotifications.Remove(notification);
+                container?.Children.Remove(notification);
+                activeNotifications.Remove(notification);
             };
 
             // 自动关闭
@@ -146,7 +145,7 @@ public class NotificationService {
             };
 
             // 如果当前没有鼠标悬浮在任何通知上，则启动计时器
-            if (!_isMouseOverAnyNotification) {
+            if (!isMouseOverAnyNotification) {
                 timer.Start();
             }
         });
