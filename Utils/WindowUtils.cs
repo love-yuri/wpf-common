@@ -6,7 +6,35 @@ namespace LoveYuri.Utils;
 /// window常用工具
 /// </summary>
 public static class WindowUtils {
+
     /// <summary>
+    /// 安全获取第一个可见窗口
+    /// </summary>
+    public static Window? SafeMainWindow {
+        get {
+            if (Application.Current == null) {
+                return null;
+            }
+
+            return Application.Current.Dispatcher.Invoke(() => {
+                try {
+                    var openWindows = Application.Current.Windows;
+                    Log.Info($"Window count: {openWindows.Count}");
+
+                    // 查找激活的窗口，如果没有激活的则返回第一个
+                    var activeWindow = openWindows.OfType<Window>()
+                        .FirstOrDefault(w => w.IsActive);
+
+                    return activeWindow ?? (openWindows.Count > 0 ? openWindows[0] : null);
+                } catch (Exception ex) {
+                    Log.Error($"Error getting active window: {ex.Message}");
+                    return null;
+                }
+            });
+        }
+    }
+
+/// <summary>
     /// 将当前window围绕父级窗口显示，优先选择剩余空间最大的方向
     /// </summary>
     /// <param name="window">待处理的window</param>
