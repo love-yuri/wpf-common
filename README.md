@@ -8,11 +8,17 @@
 
 ### 2.0.3
 1. 新增modern组件套装，将重新实现的控件，统一命名为modern-xx
+2. WindowUtils 安全获取第一个可见窗口的功能
+3. 所有通知功能命名为Notify-xx
+4. 通知功能新增无窗口调用功能-使用WindowUtils获取的安全窗口
+5. 新增ViewModel-UserControl 和 window
+6. 新增枚举工具：string.Parse, string.TryParse, GetDescription
+7. 修复Log.Debug不生效的bug
 
 ## 快速开始
 
 1. 在项目中引入依赖: `<PackageReference Include="love-yuri.WpfCommon" />`
-3. 直接开始使用
+2. 直接开始使用
 
 ## 项目依赖
 
@@ -33,8 +39,8 @@
 > 依赖注入服务，这是di依赖注入的核心服务类。
 
 1. `static void RegisterDiService(...)` 核心方法，下面所有的函数使用的前提就是调用注册服务。
-   1. this Application application: 需要进行注册的application
-   2. Action<IServiceCollection> register: 进行具体注册的函数回调
+    1. this Application application: 需要进行注册的application
+    2. Action<IServiceCollection> register: 进行具体注册的函数回调
 2. ` static T GetService<T>() where T : class` 调用GetService方法。
 3. `public static T GetRequiredService<T>()` 从容器里获取服务。使用这个需要进行host的注册。
 
@@ -84,9 +90,9 @@
 #### api
 
 1. `ShowSuccess（this Window window, string message, bool autoClose = true, int duration = 2000）`
-   - `window` 待显示的window
-   - `message` 需要显示的消息
-   - `autoClose` 是否要自动关闭，如果为true则会在`duration `ms后启动关闭
+    - `window` 待显示的window
+    - `message` 需要显示的消息
+    - `autoClose` 是否要自动关闭，如果为true则会在`duration `ms后启动关闭
 2. `ShowInfo` 同上
 3. `ShowWarning` 同上
 4. `ShowError` 同上
