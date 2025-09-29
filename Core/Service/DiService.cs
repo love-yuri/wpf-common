@@ -75,7 +75,7 @@ public static class DiService {
             OnApplicationStartup
         );
 
-        WeakEventManager<Application, StartupEventArgs>.AddHandler(
+        WeakEventManager<Application, ExitEventArgs>.AddHandler(
             application, nameof(application.Exit),
             OnApplicationExit
         );
@@ -89,7 +89,7 @@ public static class DiService {
         _host?.Start();
     }
 
-    private static void OnApplicationExit(object? sender, StartupEventArgs e)
+    private static void OnApplicationExit(object? sender, ExitEventArgs e)
     {
         _host?.Dispose();
     }

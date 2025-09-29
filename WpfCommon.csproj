@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <RootNamespace>LoveYuri</RootNamespace>
         <AssemblyName>love-yuri</AssemblyName>
-        <Version>2.0.3</Version>
+        <Version>2.0.4</Version>
         <Authors>love-yuri</Authors>
         <Description>基于.net8.0构建的wpf常用工具库</Description>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
