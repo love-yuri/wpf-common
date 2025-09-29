@@ -3,6 +3,5 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Modern/ModernWindow.xaml" />
         <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Modern/ModernMenu.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Modern/ModernMessageBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
