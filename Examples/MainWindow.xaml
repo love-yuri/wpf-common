@@ -9,8 +9,14 @@
     mc:Ignorable="d"
     WindowStartupLocation="CenterScreen"
     Padding="10"
+    Title="MainWindow" Height="450" Width="800">
 
-       Title="MainWindow" Height="450" Width="800">
+    <modern:ModernWindow.ToolbarMenu>
+        <modern:ModernContextMenu>
+            <modern:ModernMenuItem Header="测试" />
+        </modern:ModernContextMenu>
+    </modern:ModernWindow.ToolbarMenu>
+
     <StackPanel>
         <controls:ToolButton Content="测试1" Click="Test1" />
     </StackPanel>
