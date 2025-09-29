@@ -65,4 +65,23 @@ public static class StringUtils {
             return defaultValue;
         }
     }
+
+    /// <summary>
+    /// 将字符串格式化为枚举类型，如果失败则抛出异常
+    /// </summary>
+    public static T ToEnum<T>(this string v)
+    {
+        return (T)Enum.Parse(typeof(T), v);
+    }
+
+    /// <summary>
+    /// 将字符串格式化为枚举类型，如果失败则抛出异常
+    /// </summary>
+    public static T TryToEnum<T>(this string v, T defaultValue = default) where T: struct, Enum
+    {
+        if (Enum.TryParse<T>(v, out var res)) {
+            return res;
+        }
+        return defaultValue;
+    }
 }
