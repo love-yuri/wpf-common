@@ -19,7 +19,6 @@ public static class WindowUtils {
             return Application.Current.Dispatcher.Invoke(() => {
                 try {
                     var openWindows = Application.Current.Windows;
-                    Log.Info($"Window count: {openWindows.Count}");
 
                     // 查找激活的窗口，如果没有激活的则返回第一个
                     var activeWindow = openWindows.OfType<Window>()
@@ -34,7 +33,7 @@ public static class WindowUtils {
         }
     }
 
-/// <summary>
+    /// <summary>
     /// 将当前window围绕父级窗口显示，优先选择剩余空间最大的方向
     /// </summary>
     /// <param name="window">待处理的window</param>
