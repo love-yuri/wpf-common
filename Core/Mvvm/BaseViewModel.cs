@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 
 namespace LoveYuri.Core.Mvvm;
 
@@ -43,7 +42,6 @@ public abstract class BaseViewModel : INotifyPropertyChanged {
     /// <param name="propertyName">属性名称</param>
     /// <param name="dependentProperties">更新成功的附属通知</param>
     /// <returns>返回是否更新成功</returns>
-    [UsedImplicitly]
     protected bool SetField<T>(ref T field, T value,  [CallerMemberName] string? propertyName = null, string[]? dependentProperties = null) {
         if (EqualityComparer<T>.Default.Equals(field, value)) {
             return false;

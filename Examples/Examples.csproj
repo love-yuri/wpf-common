@@ -14,4 +14,8 @@
       <ProjectReference Include="..\WpfCommon.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="love-yuri.NetToolkit" Version="1.0.0" />
+    </ItemGroup>
+
 </Project>

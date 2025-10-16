@@ -26,7 +26,7 @@ public static class WindowUtils {
 
                     return activeWindow ?? (openWindows.Count > 0 ? openWindows[0] : null);
                 } catch (Exception ex) {
-                    Log.Error($"Error getting active window: {ex.Message}");
+                    Console.Error.WriteLine($"Error getting active window: {ex.Message}");
                     return null;
                 }
             });
