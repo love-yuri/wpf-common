@@ -1,6 +1,6 @@
 // ReSharper disable InconsistentNaming
 
-using LoveYuri.Core.Sql;
+using LoveYuri.Core.Sqlite;
 
 namespace LoveYuri.Examples.Entity;
 

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using LoveYuri.Core.Notification;
-using LoveYuri.Core.Sql;
+using LoveYuri.Core.Sqlite;
 using LoveYuri.Examples.Entity;
 using LoveYuri.Modern;
 using LoveYuri.Utils;

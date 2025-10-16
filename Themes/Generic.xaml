@@ -2,9 +2,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Notification/Notification.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Templates/Componets.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Modern/Componets.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Icons/Svg.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri.WpfCommon;component/Themes/Notification/Notification.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri.WpfCommon;component/Themes/Templates/Componets.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri.WpfCommon;component/Themes/Modern/Componets.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri.WpfCommon;component/Themes/Icons/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

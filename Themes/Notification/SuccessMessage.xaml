@@ -3,7 +3,7 @@
     xmlns:notification="clr-namespace:LoveYuri.Core.Notification">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/love-yuri;component/Themes/Icons/Svg.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/love-yuri.WpfCommon;component/Themes/Icons/Svg.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type notification:SuccessNotificationMessage}">
